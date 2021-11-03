@@ -1,7 +1,12 @@
+/**
+ * Code of Émilien Gallet
+ * next step improuve teh data import to be more eco-friendly
+ */
 console.log("hello")
 let app = Vue.createApp({
 	data: () => ({
-		path: "https://api-flag.fouloscopie.com/flag/"
+		path: "https://api-flag.fouloscopie.com/flag/",
+		carte: {},
 	}),
 	mounted: async function() {
 		let res;
@@ -11,9 +16,23 @@ let app = Vue.createApp({
 		})
 		
 		let body = await res.json();
-		console.debug(body)
-		/* TODO */
+		this.carte = new Map();
+		for (let i = 0; i < body.length; i++) {
+ 			this.carte.set(body[i].indexInFlag,body[i].hexColor)
+		}
+		console.debug(this.carte)
 	},
+	template: 
+	`
+	<table>
+		<tr>
+			<td v-for="el in carte" :id="el[0]" :style="'background-color:'+el[1]+';'">
+			
+			</td>
+		</tr>
+	</table>
+	`
 });
+
 
 app.mount('#flag');

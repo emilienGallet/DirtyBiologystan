@@ -9,7 +9,6 @@
   crossorigin="anonymous">
   <!-- <script type="text/javascript"
     src="https://cdn.skypack.dev/pin/@hotwired/turbo@v7.0.1-N3UVyvzfByGp0V7Vwzzz/mode=imports/optimized/@hotwired/turbo.js"></script> -->
-    <script src="https://unpkg.com/vue@3"></script>
 <title>DirtyBiologistan - État</title>
 </head>
 <body>
@@ -29,6 +28,7 @@
 
   <p id="end">Cordialement, un citoyens du DirtyBiologistan</p>
   <footer th:replace="~{footer:: baseLayout()}"></footer>
-  <script src="/js/flag.js"></script>
+  <script src="https://unpkg.com/vue@3.2.21/dist/vue.global.js"></script>
+  <script type="module" src="/js/flag.js"></script>
 </body>
 </html>
