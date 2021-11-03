@@ -1,5 +1,98 @@
 @charset "UTF-8";
+
+*{
+	color : orange;
+}
+
 #flag td {
-    width: 1px;
-    height: 1px;
+	width: 1px;
+	height: 1px;
+}
+body{
+	background-color: #484444;
+}
+
+header #flag, header h1 {
+	display: inline-block;
+	padding: 0px;
+	margin: 0px;
+	text-align: center;
+	width: 100%;
+}
+
+header #header, footer #footer {
+	margin: auto;
+	height: 5em;
+	vertical-align: middle;
+}
+
+footer #footer {
+	text-align: center;
+}
+
+header table {
+	width: 100%;
+	height: 100%;
+}
+
+header,footer {
+	background-color:#000 ;	
+}
+
+#flag img {
+	margin: auto;
+	width: 100px;
+	height: 50px;
+}
+
+h1 {
+	vertical-align: middle;
+}
+
+#background{
+	position :absolute;
+	height:100%;
+	width:100%;
+	background-image: url('../img/index.png');
+	background-repeat:space;
+	background-size:100%;
+	animation-name: mouve;
+  	animation-duration: 30s;
+ 	animation-delay: 3s;
+ 	animation-iteration-count: infinite;
+ 	z-index: -1;
+}
+
+p#end{
+	margin:0px;
+}
+a:not(a:visited) {
+	color: #b2ff0a;
+}
+a:hover{
+	color: #0ae8ff !important;
+}
+a:visited {
+	color: #ff4800;
+}
+
+@keyframes mouve {
+  0%   {left:0%; top:0px;-webkit-background-size: 100%;}
+  50%  {left:0px; top:0px;-webkit-background-size: 150%;}
+  100% {left:0%; top:0px;-webkit-background-size: 100%;}
+}
+
+@media all and (min-width: /*32.5*/ 730px) {
+	section{
+		width: 70%;
+		margin: auto;
+		padding : 0% 3em;
+		background-color: rgba(0,0,0,0.88)
+	}
+	header #header {
+		width: 50%;
+	}
+	footer #footer {
+		width: 50%;
+	}
 }
