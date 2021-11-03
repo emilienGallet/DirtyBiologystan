@@ -34,3 +34,4 @@ build/
 /home/
 /DirtyBiologistanDB.mv.db
 /DirtyBiologistanDB.trace.db
+/DirtyBiologistanDB.lock.db
