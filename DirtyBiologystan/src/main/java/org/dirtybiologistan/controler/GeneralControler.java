@@ -16,14 +16,27 @@ public class GeneralControler {
 		return "index";
 	}
 	
+	/**
+	 * Retourne la constitution de la micronation
+	 * @return
+	 */
 	@GetMapping("/constitution")
 	public String consitution() {
-		return "index";
+		return "constitution";
 	}
 	
 	@GetMapping("/citoyens")
 	public String citoyens() {
-		return "index";
+		return "citoyens";
+	}
+	
+	/**
+	 * Le mettre en rest
+	 * @return le tag de la personne 
+	 */
+	@GetMapping("/citoyens/{colone}/{ligne}")
+	public String citoyensID() {
+		return "citoyens";
 	}
 	
 	public String error() {
