@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+#menu{
+	background-color: #2a7ffe;
+	text-align: center;
+}
+#menu table {
+    margin: auto;
+}
+
+#menu * {
+    color: white;
+}
+#menu img{
+	width: 100px;
+	height: 100px;
+	margin: 0px 25px;
+}
+#menu td {
+    height: 150px;
+    border-right: 1px white solid;
+}
+#menu td:last-child {
+    height: 150px;
+    border-right: none;
+}

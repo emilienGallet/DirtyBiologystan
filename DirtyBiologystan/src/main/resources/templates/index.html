@@ -9,6 +9,7 @@
   crossorigin="anonymous">
 <link rel="stylesheet" href="/css/grayscale-boostrap.css">
 <link rel="stylesheet" href="/css/flag.css">
+<link rel="stylesheet" href="/css/menu.css">
 
 <!-- <script type="text/javascript"
     src="https://cdn.skypack.dev/pin/@hotwired/turbo@v7.0.1-N3UVyvzfByGp0V7Vwzzz/mode=imports/optimized/@hotwired/turbo.js"></script> -->
@@ -17,21 +18,33 @@
 <body>
   <header th:replace="~{header:: baseLayout()}"></header>
   <section id="intro">
-    <h3>
+    <h4>
       Ceci est le site web non officiel du <strong>DirtyBiologistan</strong>
-    </h3>
+    </h4>
     <p>Vu son très très jeune âge, merci de patienter pour les
       services publics en cours de déploiement</p>
     <p>Il sera demandé aux divers partis politiques de se faire
-      connaître à partir du 3 novembre 12h00</p>
+      connaître à partir du 4 novembre 12h00</p>
+     <p>Monsieur Émilien Gallet ([127:36] WolfoMir sur discord) s'adressera dans un message à la nation aux Dirtybiologistiens dans la même journée</p>
     <p>
       Dans l'attente de l'établissement de notre nouvelle <a
         href="./constitution">consitution</a>, merci de bien vouloir
       patienter
     </p>
 
-
   <p id="end">Cordialement, un citoyen du DirtyBiologistan</p>
+  </section>
+  <section id="menu">
+    <table>
+      <tr>
+        <td><img src="../img/id.png"><div>Papier-Citoyenneté</div></td>
+        <td><img src="../img/Parents,_enfants,_famille.png"><div>Famille</div></td>
+        <td><img src="../img/justice.png"><div>Justice</div></td>
+        <td><img src="../img/assotiation.png"><div>Assosciation</div></td>
+        <td><img src="../img/administration.png"><div>Administration</div></td>
+        <td><img src="../img/stranger.png"><div>Voyage à l'étranger</div></td>
+      </tr>
+    </table>
   </section>
   <section id="vide"></section>
   <footer th:replace="~{footer:: baseLayout()}"></footer>
