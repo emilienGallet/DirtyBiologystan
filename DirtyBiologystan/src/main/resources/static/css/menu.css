@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@media all and (max-width: /*32.5*/ 730px) {
+@media all and (max-width: /*32.5*/ 1256px) {
 	.largeScreen{
 		display: none;
 	}
@@ -8,7 +8,7 @@
 	}
 }
 
-@media all and (min-width: /*32.5*/ 730px) {
+@media all and (min-width: /*32.5*/ 1256px) {
 	.largeScreen{
 		display: initial;
 	}
