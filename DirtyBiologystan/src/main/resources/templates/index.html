@@ -8,25 +8,25 @@
   integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
   crossorigin="anonymous">
 <meta name="viewport" content="width=device-width, user-scalable=yes">
-<link rel="stylesheet" href="/css/grayscale-boostrap.css">
-<link rel="stylesheet" href="/css/flag.css">
-<link rel="stylesheet" href="/css/menu.css">
+<link rel="stylesheet" th:attr="href=${ressourceesDeploy +'/css/grayscale-boostrap.css'}">
+<link rel="stylesheet" th:attr="href=${ressourceesDeploy +'/css/flag.css'}">
+<link rel="stylesheet" th:attr="href=${ressourceesDeploy +'/css/menu.css'}">
 
 <!-- <script type="text/javascript"
     src="https://cdn.skypack.dev/pin/@hotwired/turbo@v7.0.1-N3UVyvzfByGp0V7Vwzzz/mode=imports/optimized/@hotwired/turbo.js"></script> -->
-<title>DirtyBiologistan - État</title>
+<title>DirtyBiologystan - État</title>
 </head>
 <body>
   <header th:replace="~{header:: baseLayout()}"></header>
   <section id="intro">
     <h5>
-      Ceci est le site web non officiel (actuellement) du <strong>DirtyBiologistan</strong>
+      Ceci est le site web non officiel (actuellement) du <strong>DirtyBiologystan</strong>
     </h5>
     <p>Vu son très très jeune âge, merci de patienter pour les
       services publics en cours de déploiement</p>
     <p>Il sera demandé aux divers partis politiques de se faire
-      connaître à partir du 5 novembre 12h00</p>
-     <p>Monsieur Émilien Gallet ([127:36] WolfoMir sur discord) s'adressera dans un message à la nation aux Dirtybiologistiens dans la même journée</p>
+      connaître à partir du 5 novembre 12h00 sur la plateforme</p>
+     <p>Monsieur Émilien Gallet ([127:36] WolfoMir sur discord) en sa qualité de citoyen s'adressera dans un message à la nation aux Dirtybiologistiens dans la même journée</p>
     <p>
       Dans l'attente de l'établissement de notre nouvelle <a
         href="./constitution">consitution</a>, merci de bien vouloir
@@ -46,18 +46,18 @@
         <td><img src="../img/stranger.png"><div>Voyage à l'étranger</div></td>
       </tr>
       <!--  -->
-      <tr class="smallScreen"><td><img src="../img/id.png"><div>Papier-Citoyenneté</div></td></tr>
-      <tr class="smallScreen"><td><img src="../img/justice.png"><div>Consitution<br>&<br>Justice</div></td></tr>
-      <tr class="smallScreen"><td><img src="../img/assotiation.png"><div>Assosciation</div></td></tr>
-      <tr class="smallScreen"><td><img src="../img/administration.png"><div>Administration</div></td></tr>
-      <tr class="smallScreen"><td><img src="../img/stranger.png"><div>Voyage à l'étranger</div></td></tr>
+      <tr class="smallScreen"><td><img th:attr="src=${ressourceesDeploy +'/img/id.png'}"><div>Papier-Citoyenneté</div></td></tr>
+      <tr class="smallScreen"><td><img th:attr="src=${ressourceesDeploy +'/img/justice.png'}"><div>Consitution<br>&<br>Justice</div></td></tr>
+      <tr class="smallScreen"><td><img th:attr="src=${ressourceesDeploy +'/img/assotiation.png'}"><div>Assosciation</div></td></tr>
+      <tr class="smallScreen"><td><img th:attr="src=${ressourceesDeploy +'/img/administration.png'}"><div>Administration</div></td></tr>
+      <tr class="smallScreen"><td><img th:attr="src=${ressourceesDeploy +'/img/stranger.png'}"><div>Voyage à l'étranger</div></td></tr>
     </table>
   </section>
   <section id="vide"></section>
   <footer th:replace="~{footer:: baseLayout()}"></footer>
   <script src="https://unpkg.com/vue@3.2.21/dist/vue.global.js"></script>
-  <script type="module" src="/js/flag.js"></script>
-  <script type="text/javascript" src="./js/footer.js"></script>
+  <script type="module" th:attr="src=${ressourceesDeploy +'/js/flag.js'}"></script>
+  <script type="text/javascript" th:attr="src=${ressourceesDeploy +'/js/footer.js'}"></script>
   <div id="background"></div>
 </body>
 </html>

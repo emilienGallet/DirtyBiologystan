@@ -1,8 +1,8 @@
-package org.dirtybiologistan.factory;
+package org.dirtybiologystan.factory;
 
 import java.util.Optional;
 
-import org.dirtybiologistan.entity.Citizen;
+import org.dirtybiologystan.entity.Citizen;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

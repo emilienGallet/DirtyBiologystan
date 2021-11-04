@@ -1,10 +1,10 @@
-package org.dirtybiologistan;
+package org.dirtybiologystan;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DirtyBiologistanApplicationTests {
+class DirtyBiologystanApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -1,5 +1,7 @@
-package org.dirtybiologistan.controler;
+package org.dirtybiologystan.controler;
+import org.dirtybiologystan.DeployInit;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
@@ -12,7 +14,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class GeneralControler {
 
 	@GetMapping("/")
-	public String home() {
+	public String home(Model m) {
+		if (DeployInit.isLive) {			
+			m.addAttribute("ressourceesDeploy",DeployInit.PathResourcesDeploy);
+		}else {
+			m.addAttribute("ressourceesDeploy","");
+		}
 		return "index";
 	}
 	
