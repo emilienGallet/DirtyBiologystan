@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>fr.emiliengallet.dirtybiologystan</groupId>
 	<artifactId>DirtyBiologystan</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<packaging>war</packaging>
 	<name>DirtyBiologystan</name>
 	<description>Création d&apos;un site web avec divers modules qui pourrait s&apos;agencer afin d&apos;établir notre glorieux pays</description>
