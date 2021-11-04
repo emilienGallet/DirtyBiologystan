@@ -1,6 +1,6 @@
-package org.dirtybiologistan.factory;
+package org.dirtybiologystan.factory;
 
-import org.dirtybiologistan.entity.Association;
+import org.dirtybiologystan.entity.Association;
 import org.springframework.data.repository.CrudRepository;
 
 public interface AssociationFactory extends CrudRepository<Association, Long>{

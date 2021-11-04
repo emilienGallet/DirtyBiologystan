@@ -1,11 +1,11 @@
-package org.dirtybiologistan.controler;
+package org.dirtybiologystan.controler;
 import javax.inject.Inject;
 
-import org.dirtybiologistan.entity.Citizen;
-import org.dirtybiologistan.entity.CitizenDetailsService;
-import org.dirtybiologistan.entity.CitizenValidator;
-import org.dirtybiologistan.factory.AssociationFactory;
-import org.dirtybiologistan.factory.CitizenFactory;
+import org.dirtybiologystan.entity.Citizen;
+import org.dirtybiologystan.entity.CitizenDetailsService;
+import org.dirtybiologystan.entity.CitizenValidator;
+import org.dirtybiologystan.factory.AssociationFactory;
+import org.dirtybiologystan.factory.CitizenFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

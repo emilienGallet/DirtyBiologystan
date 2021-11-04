@@ -1,4 +1,4 @@
-package org.dirtybiologistan.entity;
+package org.dirtybiologystan.entity;
 
 import java.util.ArrayList;
 

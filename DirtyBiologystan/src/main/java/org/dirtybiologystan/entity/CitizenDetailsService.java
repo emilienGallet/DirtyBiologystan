@@ -1,10 +1,10 @@
-package org.dirtybiologistan.entity;
+package org.dirtybiologystan.entity;
 
 import java.util.NoSuchElementException;
 
 import javax.inject.Inject;
 
-import org.dirtybiologistan.factory.CitizenFactory;
+import org.dirtybiologystan.factory.CitizenFactory;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
