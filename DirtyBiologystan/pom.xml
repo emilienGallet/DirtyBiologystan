@@ -9,7 +9,7 @@
 		<version>2.5.6</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>fr.emiliengallet.dirtybiologistan</groupId>
+	<groupId>fr.emiliengallet.dirtybiologystan</groupId>
 	<artifactId>DirtyBiologystan</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
