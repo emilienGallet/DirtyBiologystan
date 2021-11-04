@@ -10,6 +10,7 @@
 }
 body{
 	background-image: url('../img/index.png');
+	margin: 0px;
 }
 
 header #flag, header h1 {
@@ -76,6 +77,10 @@ a:visited {
 	color: #ff4800;
 }
 
+section{
+	background-color: rgba(0,0,0,0.88)
+}
+
 @keyframes mouve {
   0%   {left:0%; top:0px;-webkit-background-size: 100%;}
   50%  {left:0px; top:0px;-webkit-background-size: 150%;}
@@ -87,7 +92,6 @@ a:visited {
 		width: 70%;
 		margin: auto;
 		padding : 0% 3em;
-		background-color: rgba(0,0,0,0.88)
 	}
 	header #header {
 		width: 50%;

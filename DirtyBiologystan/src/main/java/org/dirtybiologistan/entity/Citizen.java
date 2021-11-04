@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -37,7 +38,6 @@ public class Citizen {
 
 	@Id
 	@NotNull
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private String id;// id for app
 	@Column(nullable = false)
 	private String colone;
@@ -49,6 +49,11 @@ public class Citizen {
 	private final PasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 	@Column(nullable = false)
 	private String password;
+	@Column(nullable = false)
+	private String urlPersonalWebsite;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	List<Citizen> familiy;
 	
 	@ElementCollection(fetch = FetchType.EAGER)
 	@Enumerated(EnumType.STRING)

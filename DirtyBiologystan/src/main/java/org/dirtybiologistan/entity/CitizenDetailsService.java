@@ -1,5 +1,7 @@
 package org.dirtybiologistan.entity;
 
+import java.util.NoSuchElementException;
+
 import javax.inject.Inject;
 
 import org.dirtybiologistan.factory.CitizenFactory;
@@ -27,7 +29,7 @@ public class CitizenDetailsService implements UserDetailsService {
    
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Citizen people = citizenList.findById(username);
+        Citizen people = citizenList.findById(username).get();
         if (people == null)
             throw new UsernameNotFoundException(username);
 
@@ -40,8 +42,8 @@ public class CitizenDetailsService implements UserDetailsService {
         citizenList.save(people);
     }
 
-    public Citizen findById(String username) {
-        return citizenList.findById(username);
+    public Citizen findById(String username) throws NoSuchElementException{
+        return citizenList.findById(username).get();
     }
 
 }

@@ -4,6 +4,7 @@ import javax.inject.Inject;
 import org.dirtybiologistan.entity.Citizen;
 import org.dirtybiologistan.entity.CitizenDetailsService;
 import org.dirtybiologistan.entity.CitizenValidator;
+import org.dirtybiologistan.factory.AssociationFactory;
 import org.dirtybiologistan.factory.CitizenFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  *
  */
 @Controller
-public class Administration {
+public class AdministrationControler {
 	@Inject
 	CitizenDetailsService citizenDetailsService;
 	
@@ -27,6 +28,9 @@ public class Administration {
 	
 	@Inject
     CitizenFactory citizenList;
+	
+	@Inject
+	AssociationFactory assotiations;
 	
 	/**
 	 * Enregistre un nouveau citoyen dans la bd
@@ -39,7 +43,6 @@ public class Administration {
 	
 	@GetMapping("/register")
 	public String registerCitizenForm(Model m) {
-
 		m.addAttribute("register", new Citizen());
 		return "register";
 	}
@@ -54,6 +57,12 @@ public class Administration {
 		}
 		citizenDetailsService.save(p);
 		return "redirect:/";
+	}
+	
+	@GetMapping("/assotiation")
+	public String assosList(Model m) {
+		m.addAttribute("assotiations", assotiations);
+		return "register";
 	}
 	
 }

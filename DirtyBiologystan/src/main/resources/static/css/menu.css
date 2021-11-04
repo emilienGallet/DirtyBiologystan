@@ -1,4 +1,21 @@
 @charset "UTF-8";
+@media all and (max-width: /*32.5*/ 730px) {
+	.largeScreen{
+		display: none;
+	}
+	.smallScreen{
+		display: initial;
+	}
+}
+
+@media all and (min-width: /*32.5*/ 730px) {
+	.largeScreen{
+		display: initial;
+	}
+	.smallScreen{
+		display: none;
+	}
+}
 
 #menu{
 	background-color: #2a7ffe;

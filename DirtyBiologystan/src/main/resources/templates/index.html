@@ -7,6 +7,7 @@
   rel="stylesheet"
   integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
   crossorigin="anonymous">
+<meta name="viewport" content="width=device-width, user-scalable=yes">
 <link rel="stylesheet" href="/css/grayscale-boostrap.css">
 <link rel="stylesheet" href="/css/flag.css">
 <link rel="stylesheet" href="/css/menu.css">
@@ -18,9 +19,9 @@
 <body>
   <header th:replace="~{header:: baseLayout()}"></header>
   <section id="intro">
-    <h4>
-      Ceci est le site web non officiel du <strong>DirtyBiologistan</strong>
-    </h4>
+    <h5>
+      Ceci est le site web non officiel (actuellement) du <strong>DirtyBiologistan</strong>
+    </h5>
     <p>Vu son très très jeune âge, merci de patienter pour les
       services publics en cours de déploiement</p>
     <p>Il sera demandé aux divers partis politiques de se faire
@@ -36,14 +37,20 @@
   </section>
   <section id="menu">
     <table>
-      <tr>
-        <td><img src="../img/id.png"><div>Papier-Citoyenneté</div></td>
+      <tr class="largeScreen">
+        <td></td>
         <td><img src="../img/Parents,_enfants,_famille.png"><div>Famille</div></td>
-        <td><img src="../img/justice.png"><div>Justice</div></td>
+        <td><img src="../img/justice.png"><div>Consitution<br>&<br>Justice</div></td>
         <td><img src="../img/assotiation.png"><div>Assosciation</div></td>
         <td><img src="../img/administration.png"><div>Administration</div></td>
         <td><img src="../img/stranger.png"><div>Voyage à l'étranger</div></td>
       </tr>
+      <!--  -->
+      <tr class="smallScreen"><td><img src="../img/id.png"><div>Papier-Citoyenneté</div></td></tr>
+      <tr class="smallScreen"><td><img src="../img/justice.png"><div>Consitution<br>&<br>Justice</div></td></tr>
+      <tr class="smallScreen"><td><img src="../img/assotiation.png"><div>Assosciation</div></td></tr>
+      <tr class="smallScreen"><td><img src="../img/administration.png"><div>Administration</div></td></tr>
+      <tr class="smallScreen"><td><img src="../img/stranger.png"><div>Voyage à l'étranger</div></td></tr>
     </table>
   </section>
   <section id="vide"></section>
