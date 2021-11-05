@@ -28,7 +28,7 @@ public class GeneralControler {
 	 * @return
 	 */
 	@GetMapping("/constitution")
-	public String consitution() {
+	public String constitution() {
 		return "constitution";
 	}
 	
