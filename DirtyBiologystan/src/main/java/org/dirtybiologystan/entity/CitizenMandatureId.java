@@ -2,6 +2,8 @@ package org.dirtybiologystan.entity;
 
 import java.io.Serializable;
 
+import org.dirtybiologystan.entity.administration.Administration;
+
 public class CitizenMandatureId implements Serializable{
 	/**
 	 * 

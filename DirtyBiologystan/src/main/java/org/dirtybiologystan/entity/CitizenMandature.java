@@ -10,6 +10,8 @@ import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
+import org.dirtybiologystan.entity.administration.Administration;
+
 import com.sun.istack.NotNull;
 
 
