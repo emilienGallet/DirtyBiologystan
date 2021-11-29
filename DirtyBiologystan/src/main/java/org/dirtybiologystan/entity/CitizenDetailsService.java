@@ -4,7 +4,7 @@ import java.util.NoSuchElementException;
 
 import javax.inject.Inject;
 
-import org.dirtybiologystan.factory.CitizenFactory;
+import org.dirtybiologystan.repository.CitizenRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 public class CitizenDetailsService implements UserDetailsService {
 
     @Inject
-    CitizenFactory citizenList;
+    CitizenRepository citizenList;
 
     public final PasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 

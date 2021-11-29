@@ -4,8 +4,8 @@ import javax.inject.Inject;
 import org.dirtybiologystan.entity.Citizen;
 import org.dirtybiologystan.entity.CitizenDetailsService;
 import org.dirtybiologystan.entity.CitizenValidator;
-import org.dirtybiologystan.factory.AssociationFactory;
-import org.dirtybiologystan.factory.CitizenFactory;
+import org.dirtybiologystan.repository.AssociationRepository;
+import org.dirtybiologystan.repository.CitizenRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,10 +27,10 @@ public class AdministrationControler {
 	CitizenValidator citizenValidator;
 	
 	@Inject
-    CitizenFactory citizenList;
+    CitizenRepository citizenList;
 	
 	@Inject
-	AssociationFactory assotiations;
+	AssociationRepository assotiations;
 	
 	/**
 	 * Enregistre un nouveau citoyen dans la bd

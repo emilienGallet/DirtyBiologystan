@@ -1,4 +1,4 @@
-package org.dirtybiologystan.factory;
+package org.dirtybiologystan.repository;
 
 import java.util.Optional;
 
@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-public interface CitizenFactory extends CrudRepository<Citizen, String>{
+public interface CitizenRepository extends CrudRepository<Citizen, String>{
 	
 	Optional<Citizen> findById(String username);
 	

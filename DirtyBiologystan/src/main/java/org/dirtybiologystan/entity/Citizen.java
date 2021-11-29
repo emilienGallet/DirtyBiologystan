@@ -51,6 +51,8 @@ public class Citizen {
 	private String password;
 	@Column(nullable = false)
 	private String urlPersonalWebsite;
+	@Transient
+	private Pixel pixel;
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	List<Citizen> familiy;
