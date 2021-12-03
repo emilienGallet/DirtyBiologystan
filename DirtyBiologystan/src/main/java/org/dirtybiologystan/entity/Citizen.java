@@ -1,7 +1,5 @@
 package org.dirtybiologystan.entity;
 
-import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,10 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
@@ -34,7 +29,7 @@ import org.springframework.stereotype.Component;
  * 
  * @author Émilien Managed Citizen entity
  */
-public class Citizen {
+public class Citizen{
 
 	@Id
 	@NotNull
@@ -61,8 +56,12 @@ public class Citizen {
 	@Enumerated(EnumType.STRING)
 	private Set<CitizenRole> roles = new HashSet<>();
 	
+	/**
+	 * C'est a chier de faire des bean pour des entité ...
+	 * Mais pas le choix...
+	 */
 	public Citizen() {
-
+		super();
 	}
 
 	/**
@@ -70,7 +69,7 @@ public class Citizen {
 	 * @param colone du drapeau lui appartenant
 	 * @param ligne du drapeau lui appartenant
 	 */
-	public Citizen(String colone,String ligne) {
+	public Citizen(String colone,String ligne,String password) {
 		this.id = bCryptPasswordEncoder.encode(colone+":"+ligne);
 	}
 

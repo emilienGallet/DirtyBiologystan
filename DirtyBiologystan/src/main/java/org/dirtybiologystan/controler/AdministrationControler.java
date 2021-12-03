@@ -4,6 +4,7 @@ import javax.inject.Inject;
 import org.dirtybiologystan.entity.Citizen;
 import org.dirtybiologystan.entity.CitizenDetailsService;
 import org.dirtybiologystan.entity.CitizenValidator;
+import org.dirtybiologystan.factory.CitizenFactory;
 import org.dirtybiologystan.repository.AssociationRepository;
 import org.dirtybiologystan.repository.CitizenRepository;
 import org.springframework.stereotype.Controller;
@@ -43,19 +44,19 @@ public class AdministrationControler {
 	
 	@GetMapping("/register")
 	public String registerCitizenForm(Model m) {
-		m.addAttribute("register", new Citizen());
+		m.addAttribute("register", new CitizenFactory());
 		return "register";
 	}
 
 	@PostMapping("/register")
-	public String registerCitizen(@ModelAttribute("register") Citizen p, BindingResult bindingResult) {
+	public String registerCitizen(@ModelAttribute("register") CitizenFactory p, BindingResult bindingResult) {
 		
 		citizenValidator.validate(p, bindingResult);
 
 		if (bindingResult.hasErrors()) {
 			return "/register";
 		}
-		citizenDetailsService.save(p);
+		//citizenDetailsService.save(p);
 		return "redirect:/";
 	}
 	
