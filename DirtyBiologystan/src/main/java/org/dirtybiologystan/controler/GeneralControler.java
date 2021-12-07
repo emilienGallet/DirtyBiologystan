@@ -1,5 +1,6 @@
 package org.dirtybiologystan.controler;
 import org.dirtybiologystan.DeployInit;
+import org.dirtybiologystan.entity.flag.Flag;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class GeneralControler {
 
+	private Flag drapeau = new Flag();
+	
+	public GeneralControler() throws Exception {
+		drapeau.chargerDataFromFouloscopieAndCodati();
+		// TODO Auto-generated constructor stub
+	}
+	
 	@GetMapping("/")
 	public String home(Model m) {
 		if (DeployInit.isLive) {			
@@ -46,6 +54,18 @@ public class GeneralControler {
 		return "citoyens";
 	}
 	
+	@GetMapping("/drapeau")
+	public String flag(Model m) {
+		System.err.println(drapeau.pixies.size());
+		if (DeployInit.isLive) {			
+			m.addAttribute("pixies",drapeau.pixies);
+			m.addAttribute("ressourceesDeploy",DeployInit.PathResourcesDeploy);
+		}else {
+			m.addAttribute("pixies",drapeau.pixies);
+			m.addAttribute("ressourceesDeploy","");
+		}
+		return "realFlag/flag";
+	}
 	public String error() {
 		return "error";
 	}
