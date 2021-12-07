@@ -56,12 +56,12 @@ public class GeneralControler {
 	
 	@GetMapping("/drapeau")
 	public String flag(Model m) {
-		System.err.println(drapeau.pixies.size());
+		System.err.println(drapeau.drapeau.get(3).size()+"*"+drapeau.drapeau.size());
 		if (DeployInit.isLive) {			
-			m.addAttribute("pixies",drapeau.pixies);
+			m.addAttribute("pixies",drapeau.drapeau);
 			m.addAttribute("ressourceesDeploy",DeployInit.PathResourcesDeploy);
 		}else {
-			m.addAttribute("pixies",drapeau.pixies);
+			m.addAttribute("pixies",drapeau.drapeau);
 			m.addAttribute("ressourceesDeploy","");
 		}
 		return "realFlag/flag";

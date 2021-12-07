@@ -17,9 +17,13 @@
   <p>[[${#lists.size(pixies)}]]</p>
   <!-- ATTENTION : COLONE : LIGNE .-->
   <table id="leDrapeau">
-  <tr>
-  	<td data-th-each="pixel,index : ${pixies}" th:id="${pixel.colone}+':'+${pixel.ligne}" th:style="'background-color : '+${pixel.couleur}+';'"></td>
+  <tr th:each="ligne : ${pixies}">
+    <!-- <td th:text="${instance.key}">keyvalue</td> -->
+    <td th:each="pixel : ${ligne.value}" th:id="${pixel.value.colone}+':'+${pixel.value.ligne}" th:style="'background-color : '+${pixel.value.couleur}+';'"></td>
   </tr>
+  <!--  <tr data-th-each="ligne : ${pixies}">
+  	<td data-th-each="pixel,index : ${ligne}" th:id="${pixel.colone}+':'+${pixel.ligne}" th:style="'background-color : '+${pixel.couleur}+';'"></td>
+  </tr>-->
   </table>
   <footer th:replace="~{footer:: baseLayout()}"></footer>
   <script src="https://unpkg.com/vue@3.2.21/dist/vue.global.js"></script>

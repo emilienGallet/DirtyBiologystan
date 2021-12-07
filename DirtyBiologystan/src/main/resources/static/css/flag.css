@@ -4,12 +4,21 @@
 	color : orange;
 }
 
+#leDrapeau {
+	display: none;
+}
+
+#leDrapeau td {
+	width: 1px;
+	height: 1px;
+}
+
 #flag td {
 	width: 1px;
 	height: 1px;
 }
 body{
-	background-image: url('../img/index.png');
+	/*background-image: url('../img/index.png');*/
 	margin: 0px;
 }
 
