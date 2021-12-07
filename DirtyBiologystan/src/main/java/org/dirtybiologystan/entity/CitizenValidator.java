@@ -26,10 +26,10 @@ public class CitizenValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
     	CitizenFactory citoyen = (CitizenFactory) target;
-
+    	citoyen.setCitoyen();
         //ValidationUtils.rejectIfEmptyOrWhitespace(errors, "id", "notEmpty");
 
-        if (citizenDetailsService.findById(citoyen.getId()) != null) {
+        if (citizenDetailsService.findById(citoyen.getCitoyen().getId()) != null) {
             errors.rejectValue("id", "id.exist","id already use, claim ?");
         }
 

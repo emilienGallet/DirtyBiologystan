@@ -17,6 +17,7 @@ import javax.persistence.Transient;
 
 import com.sun.istack.NotNull;
 
+import org.dirtybiologystan.entity.flag.Pixel;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -68,8 +69,9 @@ public class Citizen{
 	 * 
 	 * @param colone du drapeau lui appartenant
 	 * @param ligne du drapeau lui appartenant
+	 * @param isSansPixel 
 	 */
-	public Citizen(String colone,String ligne,String password) {
+	public Citizen(String colone,String ligne,String password, Boolean isSansPixel) {
 		this.id = bCryptPasswordEncoder.encode(colone+":"+ligne);
 	}
 
