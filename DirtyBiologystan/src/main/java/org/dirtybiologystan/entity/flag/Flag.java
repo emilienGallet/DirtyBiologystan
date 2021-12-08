@@ -22,7 +22,9 @@ import com.google.gson.internal.LinkedTreeMap;
 public class Flag {
 	public Stack<Pixel> pixies;
 	public TreeMap<Integer,TreeMap<Integer,Pixel>> drapeau;//ligne puis colone;
-	static Float ratio = 0.5f; 
+	static Float ratio = 2f; 
+	private Pixel nextPixel;
+	private Etat etat;
 	public Flag() {
 		pixies = new Stack<>();
 		drapeau = new TreeMap<Integer,TreeMap<Integer,Pixel>>();
@@ -112,6 +114,10 @@ public class Flag {
 			}
 			k++;
 		}
+		//Définition en dur en connaissancee de cause des données
+		this.etat = Etat.colone;//TODO Changer
+		
+		
 		/*pixies.addAll(index);
 		
 		System.out.println("IndexError : "+indexError.size());
@@ -122,6 +128,7 @@ public class Flag {
 
 	
 	private void rajouterPixelFromData(Pixel p) {
+
 		pixies.add(p);/*
 		int x = p.getLigne()-1;
 		if (x > drapeau.size()) {
@@ -143,4 +150,50 @@ public class Flag {
 			drapeau.put(x, tm);
 		}
 	}
+	
+	/**
+	 * Retourne le pixel qui fu rajouter au drapeau
+	 * @return
+	 */
+	private synchronized Pixel rajouterNewPixel() {
+		
+		Pixel toGive = nextPixel;
+		/**
+		 * Si nous somme dans l'état colone on vérifie que l'on atteint pas la limite du ratio
+		 */
+		if (this.etat == Etat.colone) {
+			calculRatioOverflow();// défini
+		}
+		
+		if (this.etat == Etat.ratioHit) {
+			nextPixel = new Pixel(toGive.getLigne()+1, 0);
+			this.etat = Etat.ligne;
+		}else if (this.etat == Etat.ligne) {
+			nextPixel = new Pixel(toGive.getLigne()+1, 0);
+		} else {//l'etat est colone ^^
+			nextPixel = new Pixel(toGive.getLigne(), toGive.getColone()+1);
+		}
+		
+		return toGive;
+	}
+	/**
+	 * 
+	 * @return le calcul
+	 */
+	public float calculRatioOverflow() {
+		float xflag = drapeau.size();//taille en ligne
+		float yflag = drapeau.get(drapeau.size()-1).size();//taille en colone de la dernière ligne
+		if ((xflag = yflag/xflag) == ratio) { //optimisation
+			this.etat=Etat.ratioHit;
+		}
+		return xflag;
+	}
+	
+	public float calculRatio() {
+		float xflag = drapeau.size();//taille en ligne
+		float yflag = drapeau.get(drapeau.size()-1).size();//taille en colone de la dernière ligne
+		xflag = yflag/xflag;
+		return xflag;
+	}
+	
 }

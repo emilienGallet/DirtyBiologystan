@@ -56,7 +56,9 @@ public class GeneralControler {
 	
 	@GetMapping("/drapeau")
 	public String flag(Model m) {
-		System.err.println(drapeau.drapeau.get(3).size()+"*"+drapeau.drapeau.size());
+		int xflag = drapeau.drapeau.size();// a remplacer mar méthode dans Flag.class
+		int yflag = drapeau.drapeau.get(0).size();
+		System.err.println(yflag+"*"+xflag);
 		if (DeployInit.isLive) {			
 			m.addAttribute("pixies",drapeau.drapeau);
 			m.addAttribute("ressourceesDeploy",DeployInit.PathResourcesDeploy);
