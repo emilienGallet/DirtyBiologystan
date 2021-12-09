@@ -131,4 +131,20 @@ public class Citizen{
 		this.roles = roles;
 	}
 
+	public String getUrlPersonalWebsite() {
+		return urlPersonalWebsite;
+	}
+
+	public void setUrlPersonalWebsite(String urlPersonalWebsite) {
+		this.urlPersonalWebsite = urlPersonalWebsite;
+	}
+
+	public Pixel getPixel() {
+		return pixel;
+	}
+
+	public void setPixel(Pixel pixel) {
+		this.pixel = pixel;
+	}
+
 }
