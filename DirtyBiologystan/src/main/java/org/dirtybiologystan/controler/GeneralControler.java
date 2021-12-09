@@ -1,5 +1,8 @@
 package org.dirtybiologystan.controler;
+import java.awt.Color;
+
 import org.dirtybiologystan.DeployInit;
+import org.dirtybiologystan.entity.Citizen;
 import org.dirtybiologystan.entity.flag.Flag;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +21,6 @@ public class GeneralControler {
 	
 	public GeneralControler() throws Exception {
 		drapeau.chargerDataFromFouloscopieAndCodati();
-		// TODO Auto-generated constructor stub
 	}
 	
 	@GetMapping("/")
@@ -55,9 +57,16 @@ public class GeneralControler {
 	}
 	
 	@GetMapping("/drapeau")
-	public String flag(Model m) {
+	public String flag(Model m) throws Exception {
+		//Integer couleur = 0x000000;
+		
+		for (int i = 0; i < 500; i++) {				
+			this.affecterPixel(null,"#FF2345");
+			//couleur +=50;
+		}
+		
 		int xflag = drapeau.drapeau.size();// a remplacer mar méthode dans Flag.class
-		int yflag = drapeau.drapeau.get(0).size();
+		int yflag = drapeau.drapeau.get(1).size();
 		System.err.println(yflag+"*"+xflag);
 		if (DeployInit.isLive) {			
 			m.addAttribute("pixies",drapeau.drapeau);
@@ -70,5 +79,15 @@ public class GeneralControler {
 	}
 	public String error() {
 		return "error";
+	}
+	
+	/**
+	 * Affecte un pixel au citoyen
+	 * @param c
+	 * @throws Exception 
+	 */
+	public void affecterPixel(Citizen c,String couleur) throws Exception {
+		//c.setPixel(remplacer par la ligne du dessous);
+		drapeau.rajouterNewPixel(couleur);
 	}
 }

@@ -1,23 +1,19 @@
 package org.dirtybiologystan.entity.flag;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Stack;
 import java.util.TreeMap;
 
 import org.dirtybiologystan.DeployInit;
-import org.springframework.boot.json.GsonJsonParser;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
+
 
 public class Flag {
 	public Stack<Pixel> pixies;
@@ -56,7 +52,7 @@ public class Flag {
 		for (LinkedTreeMap<?, ?> el : lcodati) {
 			Double indexInFlagCodati = (Double) el.get("index");
 			map.put(indexInFlagCodati.intValue(), el);
-			System.out.println("Rajout à l'index"+ indexInFlagCodati.intValue());
+			//System.out.println("Rajout à l'index"+ indexInFlagCodati.intValue());
 			//System.out.println(map.get(1));
 			
 		}
@@ -116,8 +112,16 @@ public class Flag {
 		}
 		//Définition en dur en connaissancee de cause des données
 		this.etat = Etat.colone;//TODO Changer
-		
-		
+		int a = drapeau.get(drapeau.size()).size();
+		int b = drapeau.size();
+		this.nextPixel = this.drapeau.get(230).get(513);
+		this.nextPixel = new Pixel(nextPixel.getLigne()+1, nextPixel.getColone());
+		//TreeMap<Integer, Pixel> tml = this.drapeau.get(230);
+		System.err.println(nextPixel.getLigne()+":"+nextPixel.getColone());
+		/////////////////
+		System.err.println("231:513 selon codati");
+		System.err.println("230:513 selon moi");
+				
 		/*pixies.addAll(index);
 		
 		System.out.println("IndexError : "+indexError.size());
@@ -139,12 +143,12 @@ public class Flag {
 			drapeau.get(x).add(p);
 		}*/
 		try {
-			int x = p.getLigne()-1;
-			int y =p.getColone()-1;
+			int x = p.getLigne();
+			int y =p.getColone();
 			drapeau.get(x).put(y, p);
 		} catch (Exception e) {
-			int x = p.getLigne()-1;
-			int y =p.getColone()-1;
+			int x = p.getLigne();
+			int y =p.getColone();
 			TreeMap<Integer,Pixel> tm = new TreeMap<>();
 			tm.put(y, p);
 			drapeau.put(x, tm);
@@ -152,26 +156,50 @@ public class Flag {
 	}
 	
 	/**
-	 * Retourne le pixel qui fu rajouter au drapeau
+	 * Retourne le pixel qui fut rajouter au drapeau
+	 * @param couleur 
 	 * @return
+	 * @throws Exception 
 	 */
-	private synchronized Pixel rajouterNewPixel() {
+	public synchronized Pixel rajouterNewPixel(String couleur) throws Exception {
 		
 		Pixel toGive = nextPixel;
+		toGive.setCouleur(couleur);
+		//On le place dans le drapeau 
+		int x,y,z;
+		x= toGive.getLigne();
+		y= toGive.getColone();
+		
+		if (drapeau.get(x)!=null) {
+			drapeau.get(x).put(y, toGive);//améliorable
+		}else{
+			TreeMap<Integer, Pixel> tam = new TreeMap<>();
+			tam.put(y, toGive);
+			drapeau.put(x, tam);
+		}
+		//Ensuite...
 		/**
 		 * Si nous somme dans l'état colone on vérifie que l'on atteint pas la limite du ratio
 		 */
 		if (this.etat == Etat.colone) {
 			calculRatioOverflow();// défini
 		}
-		
 		if (this.etat == Etat.ratioHit) {
-			nextPixel = new Pixel(toGive.getLigne()+1, 0);
+			nextPixel = new Pixel(toGive.getLigne()+1, 1);
 			this.etat = Etat.ligne;
 		}else if (this.etat == Etat.ligne) {
-			nextPixel = new Pixel(toGive.getLigne()+1, 0);
-		} else {//l'etat est colone ^^
-			nextPixel = new Pixel(toGive.getLigne(), toGive.getColone()+1);
+			if(drapeau.get(1).get(toGive.getColone()+1)==null) {
+				nextPixel = new Pixel(0, toGive.getColone()+1);
+				this.etat = Etat.colone;
+			}else{
+				nextPixel = new Pixel(toGive.getLigne(), toGive.getColone()+1);
+			}
+		} else if (this.etat == Etat.newColone) {
+			nextPixel = new Pixel(1, toGive.getColone()+1);
+			this.etat = Etat.colone;
+		}else {//l'etat est colone ^^
+			this.etat = Etat.colone;//faudrait voir si on peux pas le supp cette ligne
+			nextPixel = new Pixel(toGive.getLigne()+1, toGive.getColone());
 		}
 		
 		return toGive;
@@ -182,9 +210,16 @@ public class Flag {
 	 */
 	public float calculRatioOverflow() {
 		float xflag = drapeau.size();//taille en ligne
-		float yflag = drapeau.get(drapeau.size()-1).size();//taille en colone de la dernière ligne
+		float yflag = drapeau.get(drapeau.size()).size();//taille en colone de la dernière ligne
 		if ((xflag = yflag/xflag) == ratio) { //optimisation
 			this.etat=Etat.ratioHit;
+		} else {
+			//boolean b = nextPixel.getColone() == drapeau.get(1).size();
+			boolean c = nextPixel.getLigne() == drapeau.size();
+			if (c) {
+				//TODO
+				this.etat=Etat.newColone;
+			}
 		}
 		return xflag;
 	}
