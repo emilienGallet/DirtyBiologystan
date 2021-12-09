@@ -15,7 +15,7 @@ class FlagTest {
 			Integer couleur = 0xFFFFFF;
 			
 			for (int i = 0; i < 7000; i++) {				
-				gc.affecterPixel(null,Integer.toHexString(couleur));
+				//gc.affecterPixel(null,Integer.toHexString(couleur));
 				couleur +=50;
 			}
 		} catch (Exception e) {
