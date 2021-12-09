@@ -60,7 +60,7 @@ public class GeneralControler {
 	public String flag(Model m) throws Exception {
 		//Integer couleur = 0x000000;
 		
-		for (int i = 0; i < 500; i++) {				
+		for (int i = 0; i < 1056; i++) {				
 			this.affecterPixel(null,"#FF2345");
 			//couleur +=50;
 		}

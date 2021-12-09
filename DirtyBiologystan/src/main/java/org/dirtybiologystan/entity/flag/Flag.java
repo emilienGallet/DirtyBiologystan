@@ -209,19 +209,25 @@ public class Flag {
 	 * @return le calcul
 	 */
 	public float calculRatioOverflow() {
-		float xflag = drapeau.size();//taille en ligne
-		float yflag = drapeau.get(drapeau.size()).size();//taille en colone de la dernière ligne
-		if ((xflag = yflag/xflag) == ratio) { //optimisation
+		//float xflag = drapeau.size();//taille en ligne
+		//float yflag = drapeau.get(drapeau.size()).size();//taille en colone de la dernière ligne
+		//if ((xflag = yflag/xflag) == ratio) { //optimisation
+		float x,y;
+		x= nextPixel.getLigne();
+		y= nextPixel.getColone();
+		if ((y=y/x)==ratio) {
 			this.etat=Etat.ratioHit;
 		} else {
 			//boolean b = nextPixel.getColone() == drapeau.get(1).size();
-			boolean c = nextPixel.getLigne() == drapeau.size();
+			int size=drapeau.size();
+			boolean c = nextPixel.getLigne() == size ;
 			if (c) {
 				//TODO
 				this.etat=Etat.newColone;
 			}
 		}
-		return xflag;
+		return y;
+		//return xflag;
 	}
 	
 	public float calculRatio() {
