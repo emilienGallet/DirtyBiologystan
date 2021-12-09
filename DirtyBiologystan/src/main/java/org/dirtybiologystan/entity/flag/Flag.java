@@ -189,7 +189,7 @@ public class Flag {
 			this.etat = Etat.ligne;
 		}else if (this.etat == Etat.ligne) {
 			if(drapeau.get(1).get(toGive.getColone()+1)==null) {
-				nextPixel = new Pixel(0, toGive.getColone()+1);
+				nextPixel = new Pixel(1, toGive.getColone()+1);
 				this.etat = Etat.colone;
 			}else{
 				nextPixel = new Pixel(toGive.getLigne(), toGive.getColone()+1);
