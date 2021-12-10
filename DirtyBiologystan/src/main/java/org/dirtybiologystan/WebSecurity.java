@@ -37,11 +37,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
      protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(peopleDetailsService).passwordEncoder(peopleDetailsService.bCryptPasswordEncoder);
         
-        if (!DeployInit.isLive) {
+        /*if (!DeployInit.isLive) {
         	auth.inMemoryAuthentication()
             .passwordEncoder(peopleDetailsService.bCryptPasswordEncoder) 
             .withUser("emilien").password(peopleDetailsService.bCryptPasswordEncoder.encode("toto")).roles("USER", "ADMIN")
             .and().withUser("bob").password("tata").roles("USER");
-		}
+		}*/
     }
 }
