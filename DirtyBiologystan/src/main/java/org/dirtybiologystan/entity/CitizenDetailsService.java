@@ -29,17 +29,19 @@ public class CitizenDetailsService implements UserDetailsService {
    
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Citizen people = citizenList.findById(username).get();
-        if (people == null)
+        Citizen citoyen = citizenList.findById(username).get();
+        if (citoyen == null)
             throw new UsernameNotFoundException(username);
 
-        return new User(people.getId(), people.getPassword(), people.getRoles());
+        return new User(citoyen.getId(), citoyen.getPassword(), citoyen.getRoles());
     }
 
-    public void save(Citizen people) {
-        people.setPassword(bCryptPasswordEncoder.encode(people.getPassword()));
-        people.getRoles().add(CitizenRole.USER);
-        citizenList.save(people);
+    public void save(Citizen citoyen) {
+    	String s = citoyen.getPassword();
+        citoyen.setPassword(bCryptPasswordEncoder.encode(citoyen.getPassword()));
+        bCryptPasswordEncoder.matches(s, citoyen.getPassword());//return false...
+        citoyen.getRoles().add(CitizenRole.USER);
+        citizenList.save(citoyen);
     }
 
     public Citizen findById(String username) throws NoSuchElementException{

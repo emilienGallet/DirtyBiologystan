@@ -39,8 +39,8 @@ public class Citizen{
 	private String colone;
 	@Column(nullable = false)
 	private String ligne;
-	@Column(nullable = true)
-	private String name;
+	@Column(nullable = false)
+	private String username;
 	@Transient
 	private final PasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 	@Column(nullable = false)
@@ -73,9 +73,10 @@ public class Citizen{
 	 */
 	public Citizen(String colone,String ligne,String password, Boolean isSansPixel) {
 		this.id = colone+":"+ligne;//bCryptPasswordEncoder.encode(colone+":"+ligne);
+		this.username = this.id;
 		this.colone = colone;
 		this.ligne = ligne;
-		this.password = bCryptPasswordEncoder.encode(password);
+		this.password = password;//bCryptPasswordEncoder.encode(password);
 	}
 
 	public String getId() {
@@ -83,15 +84,15 @@ public class Citizen{
 	}
 
 	public void setId(String pixel) {
-		pixel.replace("[", "");
+		/*pixel.replace("[", "");
 		pixel.replace("]", "");
 		pixel.replace(")", "");
 		pixel.replace("(", "");
 		String[] columligne= pixel.split(":");
 		if (columligne.length!=2) {
 			columligne= pixel.split(",");
-		}
-		this.id = bCryptPasswordEncoder.encode(columligne[0]+":"+columligne[1]);
+		}*/
+		this.id = pixel;//bCryptPasswordEncoder.encode(columligne[0]+":"+columligne[1]);
 	}
 
 	public String getColone() {
@@ -111,11 +112,11 @@ public class Citizen{
 	}
 
 	public String getName() {
-		return name;
+		return username;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.username = name;
 	}
 
 	public String getPassword() {

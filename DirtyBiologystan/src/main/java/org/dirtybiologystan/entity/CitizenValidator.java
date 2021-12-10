@@ -27,11 +27,16 @@ public class CitizenValidator implements Validator {
     public void validate(Object target, Errors errors) {
     	CitizenFactory citoyen = (CitizenFactory) target;
     	citoyen.setCitoyen();
-        //ValidationUtils.rejectIfEmptyOrWhitespace(errors, "id", "notEmpty");
-
-        if (citizenDetailsService.findById(citoyen.getCitoyen().getId()) != null) {
-            errors.rejectValue("id", "id.exist","id already use, claim ?");
-        }
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "colone", "notEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ligne", "notEmpty");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "notEmpty");
+        try {			
+        	if (citizenDetailsService.findById(citoyen.getCitoyen().getId()) != null) {
+        		errors.rejectValue("colone", "pixel.exist","pixel already use, claim ?");
+        	}
+		} catch (Exception e) {
+			
+		}
 
         
     }

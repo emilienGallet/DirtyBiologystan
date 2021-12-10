@@ -21,8 +21,8 @@ public class CitizenFactory{
 		return citoyen;
 	}
 	public void setCitoyen() {
-		Pixel pixel = new Pixel(colone,ligne);
-		pixelExistant(pixel);
+		//Pixel pixel = new Pixel(colone,ligne);
+		//pixelExistant(pixel);
 		//pixelClaim(pixel);
 		this.citoyen = new Citizen(colone, ligne, password,isSansPixel);
 	}

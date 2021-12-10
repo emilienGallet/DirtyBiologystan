@@ -1,12 +1,19 @@
 package org.dirtybiologystan.controler;
 import java.awt.Color;
 
+import javax.inject.Inject;
+
 import org.dirtybiologystan.DeployInit;
 import org.dirtybiologystan.entity.Citizen;
+import org.dirtybiologystan.entity.CitizenDetailsService;
 import org.dirtybiologystan.entity.flag.Flag;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * @version 1.0
@@ -17,6 +24,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class GeneralControler {
 
+	@Inject
+	CitizenDetailsService citizenDetailsService;
+	
 	private Flag drapeau = new Flag();
 	
 	public GeneralControler() throws Exception {
@@ -59,11 +69,11 @@ public class GeneralControler {
 	@GetMapping("/drapeau")
 	public String flag(Model m) throws Exception {
 		//Integer couleur = 0x000000;
-		
-		for (int i = 0; i < 1056; i++) {				
+		/*
+		for (int i = 0; i < 100000/*1056*//*; i++) {				
 			this.affecterPixel(null,"#FF2345");
 			//couleur +=50;
-		}
+		}*/
 		
 		int xflag = drapeau.drapeau.size();// a remplacer mar méthode dans Flag.class
 		int yflag = drapeau.drapeau.get(1).size();
@@ -83,11 +93,13 @@ public class GeneralControler {
 	
 	/**
 	 * Affecte un pixel au citoyen
-	 * @param c
 	 * @throws Exception 
 	 */
-	public void affecterPixel(Citizen c,String couleur) throws Exception {
+	@PostMapping("/pixel")
+	public void affecterPixel(Model m) throws Exception {
 		//c.setPixel(remplacer par la ligne du dessous);
-		drapeau.rajouterNewPixel(couleur);
+		UserDetails userD = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Citizen c = citizenDetailsService.findById(userD.getUsername());
+		drapeau.rajouterNewPixel("#FF2345");
 	}
 }

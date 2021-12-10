@@ -49,15 +49,16 @@ public class AdministrationControler {
 	}
 
 	@PostMapping("/register")
+	
 	public String registerCitizen(@ModelAttribute("register") CitizenFactory p, BindingResult bindingResult) {
 		
 		citizenValidator.validate(p, bindingResult);
-
+		//p.setCitoyen();
 		if (bindingResult.hasErrors()) {
 			return "/register";
 		}
-		//citizenDetailsService.save(p);
-		return "redirect:/";
+		citizenDetailsService.save(p.getCitoyen());
+		return "redirect:/pixel";
 	}
 	
 	@GetMapping("/assotiation")
