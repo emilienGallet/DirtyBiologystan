@@ -45,7 +45,7 @@ public class Citizen{
 	private final PasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 	@Column(nullable = false)
 	private String password;
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private String urlPersonalWebsite;
 	@Transient
 	private Pixel pixel;
@@ -72,7 +72,10 @@ public class Citizen{
 	 * @param isSansPixel 
 	 */
 	public Citizen(String colone,String ligne,String password, Boolean isSansPixel) {
-		this.id = bCryptPasswordEncoder.encode(colone+":"+ligne);
+		this.id = colone+":"+ligne;//bCryptPasswordEncoder.encode(colone+":"+ligne);
+		this.colone = colone;
+		this.ligne = ligne;
+		this.password = bCryptPasswordEncoder.encode(password);
 	}
 
 	public String getId() {
