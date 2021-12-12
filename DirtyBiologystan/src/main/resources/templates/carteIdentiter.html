@@ -4,9 +4,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" th:attr="href=${ressourceesDeploy +'/css/grayscale-boostrap.css'}">
-<link rel="stylesheet" th:attr="href=${ressourceesDeploy +'/css/flag.css'}">
-<link rel="stylesheet" th:attr="href=${ressourceesDeploy +'/css/menu.css'}">
+<link rel="stylesheet"
+	th:attr="href=${ressourceesDeploy +'/css/grayscale-boostrap.css'}">
+<link rel="stylesheet"
+	th:attr="href=${ressourceesDeploy +'/css/flag.css'}">
+<link rel="stylesheet"
+	th:attr="href=${ressourceesDeploy +'/css/menu.css'}">
+<link rel="stylesheet"
+	th:attr="href=${ressourceesDeploy +'/css/carteIdentiter.css'}">
 
 <title>Carte d'identité du DirtyBiologistan</title>
 </head>
@@ -15,47 +20,46 @@
 	<header th:replace="~{header:: baseLayout()}"></header>
 
 	<h2></h2>
-	<table>
-		<tbody>
-			<tr>
-				<td>République Populaire du DirtyBiologistan</td>
-			</tr>
-			<tr>
-				<td>Carte nationale d'identité</td>
-				<td th:if="${people.isDirtybiologistanais()}">Nationalité
-					Dirtybiologistanaise</td>
-			</tr>
-			<tr>
-				<td>[[${people.username}]]</td>
-			</tr>
-			<tr>
-				<td>[[${people.firstname}]]</td>
-			</tr>
-			<tr>
-				<td>[[${people.name}]]</td>
-			</tr>
-			<tr>
-				<td>[[${people.colone}]]</td>
-			</tr>
-			<tr>
-				<td>[[${people.ligne}]]</td>
-			</tr>
-		</tbody>
-	</table>
+	<div id="frame1">
+		<div id="frame2">
+			<table id="frontCard">
+				<tbody>
+					<tr>
+						<td id="RPDB" colspan="3">République Populaire du DirtyBiologistan</td>
+					</tr>
+					<tr>
+						<td rowspan="4" id="photoCNI"><img th:attr="src=${ressourceesDeploy +'/img/PHOTOID.jpg'}"></td>
+						<td id="CNI">Carte nationale d'identité</td>
+						<td id="Nationaliter" th:if="${people.isDirtybiologistanais()}">Nationalité&nbsp:&nbspDirtybiologistanaise</td>
+					</tr>
+					<tr>
+						<td id="Pseudo">Pseudo : [[${people.username}]]</td>
+					</tr>
+					<tr>
+						<td id="Prenom">Prénom : [[${people.firstname}]]</td>
+						<td id="Nom">Nom : [[${people.name}]]</td>
+					</tr>
+					<tr>
+						<td id="Position">Position pixel : [[${people.colone}]]:[[${people.ligne}]]</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
 
-	<table>
+	<table id="backCard">
 		<tbody>
 			<tr>
-				<td>[[${people.lieuIRL}]]</td>
+				<td id="lieuIRL">[[${people.lieuIRL}]]</td>
 			</tr>
 			<tr>
-				<td>[[${people.lieuVR}]]</td>
+				<td id="lieuVR">[[${people.lieuVR}]]</td>
 			</tr>
 			<tr>
-				<td>[[${people.debutValiditer}]]</td>
+				<td id="debutValiditer">[[${people.debutValiditer}]]</td>
 			</tr>
 			<tr>
-				<td>[[${people.finValiditer}]]</td>
+				<td id="finValiditer">[[${people.finValiditer}]]</td>
 			</tr>
 		</tbody>
 	</table>
