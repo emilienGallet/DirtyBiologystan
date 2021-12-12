@@ -8,7 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
  */
 
 public enum PeopleRole implements GrantedAuthority  {
-    USER,ADMIN,CITOYEN,NEW_CITOYEN;
+    CITOYEN,NEW_CITOYEN,WEBMASTER,MODERATEUR,USER,ADMIN;
 	
     @Override
     public String getAuthority() {

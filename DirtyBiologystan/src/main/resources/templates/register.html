@@ -1,41 +1,84 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org" >
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" th:attr="href=${ressourceesDeploy +'/css/grayscale-boostrap.css'}">
+<link rel="stylesheet" th:attr="href=${ressourceesDeploy +'/css/flag.css'}">
+<link rel="stylesheet" th:attr="href=${ressourceesDeploy +'/css/menu.css'}">
 
-    <title>Formlaire de demande de la nationalité du DirtyBiologistan</title>
+<title>Formlaire de demande de la nationalité du
+	DirtyBiologistan</title>
 </head>
 
 <body>
-    <header th:replace="~{header:: baseLayout()}"></header>
-    
-        <h2>Inscription a l'état civil du DirtyBiologistan</h2>
-    <form class="center" method="POST" th:action=@{/register} th:object="${register}" >
-        
-        <input class="form-horizontal" type="text" th:field="*{username}" placeholder="Username" required>
-		<span class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}" th:errorclass="fieldError"></span>
-		<input class="form-horizontal" type="text" th:field="*{colone}" placeholder="colone du pixel" >
-        <input class="form-horizontal" type="text" th:field="*{ligne}" placeholder="ligne du pixel" >
-        <label>
-        	Sans pixel ?
-        </label>
-        <input class="form-horizontal" type="checkbox" th:field="*{isSansPixel}">
-        <p>Par exemple si mon pixel est [127:36]. 127 est la colone, 36 la ligne</p>
-        <select>
-        <option th:each="role : ${roles}">[[${role}]]</option>
-        </select>
+	<header th:replace="~{header:: baseLayout()}"></header>
 
-        <input class="form-horizontal" type="password" th:field="*{password}" placeholder="Password" required>
-        <input class="form-horizontal" type="text" th:field="*{firstname}" placeholder="Fisrtname" required>
-        <input class="form-horizontal" type="text" th:field="*{name}"  placeholder="Name" required>
+	<h2>Inscription a l'état civil du DirtyBiologistan</h2>
+	<form class="center" method="POST" th:action=@{/register}
+		th:object="${register}">
+		<table>
+			<tbody>
+				<tr>
+					<td><input class="form-horizontal" type="text"
+						th:field="*{username}" placeholder="Username" required></td>
+				</tr>
+				<tr>
+					<td><span class="error"
+						th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
+						th:errorclass="fieldError"></span></td>
+				</tr>
+				<tr>
+					<td><input class="form-horizontal" type="password"
+						th:field="*{password}" placeholder="Password" required></td>
+				</tr>
+				<tr>
+					<td><select>
+							<option th:each="role : ${roles}">[[${role}]]</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td><input class="form-horizontal" type="text"
+						th:field="*{colone}" placeholder="Colone du pixel"></td>
+				</tr>
+				<tr>
+					<td><input class="form-horizontal" type="text"
+						th:field="*{ligne}" placeholder="Ligne du pixel"></td>
+				</tr>
+				<tr>
+					<td><label> Sans pixel ? </label> <input
+						class="form-horizontal" type="checkbox" th:field="*{isSansPixel}">
+						<p>Par exemple si mon pixel est [127:36]. 127 est la colone,
+							36 la ligne</p></td>
+				</tr>
 
-        <input class="form-horizontal" type="submit">
-
-    </form>
-    <footer th:replace="~{footer:: baseLayout()}"></footer>
+				<tr>
+					<td><input class="form-horizontal" type="text"
+						th:field="*{firstname}" placeholder="Prénom" required></td>
+				</tr>
+				<tr>
+					<td><input class="form-horizontal" type="text"
+						th:field="*{name}" placeholder="Nom de famille" required></td>
+				</tr>
+				<tr>
+					<td><input class="form-horizontal" type="text"
+						th:field="*{lieuIRL}" placeholder="Lieu de résidence (ex: La Talaudière)" required></td>
+				</tr>
+				<tr>
+					<td><input class="form-horizontal" type="text"
+						th:field="*{lieuVR}" placeholder="Région du Drapeau (ex: Lac écarlate)"></td>
+				</tr>
+				<tr>
+					<td><input class="form-horizontal" type="submit"></td>
+				</tr>
+				<tr>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+	<footer th:replace="~{footer:: baseLayout()}"></footer>
 </body>
 
 </html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" th:attr="href=${ressourceesDeploy +'/css/grayscale-boostrap.css'}">
+<link rel="stylesheet" th:attr="href=${ressourceesDeploy +'/css/flag.css'}">
+<link rel="stylesheet" th:attr="href=${ressourceesDeploy +'/css/menu.css'}">
+
+<title>Carte d'identité du DirtyBiologistan</title>
+</head>
+
+<body>
+	<header th:replace="~{header:: baseLayout()}"></header>
+
+	<h2></h2>
+	<table>
+		<tbody>
+			<tr>
+				<td>République Populaire du DirtyBiologistan</td>
+			</tr>
+			<tr>
+				<td>Carte nationale d'identité</td>
+				<td th:if="${people.isDirtybiologistanais()}">Nationalité
+					Dirtybiologistanaise</td>
+			</tr>
+			<tr>
+				<td>[[${people.username}]]</td>
+			</tr>
+			<tr>
+				<td>[[${people.firstname}]]</td>
+			</tr>
+			<tr>
+				<td>[[${people.name}]]</td>
+			</tr>
+			<tr>
+				<td>[[${people.colone}]]</td>
+			</tr>
+			<tr>
+				<td>[[${people.ligne}]]</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<table>
+		<tbody>
+			<tr>
+				<td>[[${people.lieuIRL}]]</td>
+			</tr>
+			<tr>
+				<td>[[${people.lieuVR}]]</td>
+			</tr>
+			<tr>
+				<td>[[${people.debutValiditer}]]</td>
+			</tr>
+			<tr>
+				<td>[[${people.finValiditer}]]</td>
+			</tr>
+		</tbody>
+	</table>
+	<footer th:replace="~{footer:: baseLayout()}"></footer>
+</body>
+
+</html>

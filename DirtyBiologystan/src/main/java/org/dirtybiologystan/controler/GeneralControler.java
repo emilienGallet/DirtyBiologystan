@@ -17,6 +17,7 @@ import org.dirtybiologystan.factory.PeopleFactory;
 import org.dirtybiologystan.repository.AssociationRepository;
 import org.dirtybiologystan.repository.CitizenRepository;
 import org.springframework.context.annotation.Role;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -24,8 +25,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @version 1.0
@@ -139,20 +143,15 @@ public class GeneralControler {
 		}
 	}
 
-	/**
-	 * Enregistre un nouveau citoyen dans la bd
-	 * 
-	 * @return
-	 */
-	public String registerCitizen() {
-		// TODO Process
-		return null;
-	}
-
 	@GetMapping("/register")
 	public String register(Model m) {
 		m.addAttribute("register", new People());
 		m.addAttribute("roles", PeopleRole.values());
+		if (DeployInit.isLive) {
+			m.addAttribute("ressourceesDeploy", DeployInit.PathResourcesDeploy);
+		} else {
+			m.addAttribute("ressourceesDeploy", "");
+		}
 		return "register";
 	}
 
@@ -162,23 +161,60 @@ public class GeneralControler {
 		if (bindingResult.hasErrors()) {
 			return "/register";
 		}
-		p.defineRoleGranted();
-		peopleDetailsService.save(p);
-		
-		
-		if (p.getRoles().contains(PeopleRole.NEW_CITOYEN)) {
-			p.getRoles().remove(PeopleRole.NEW_CITOYEN);
-			try {
-				p.setPixel(this.affecterPixel());
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return "error";//TODO
+		if(p.defineRoleGranted()) {
+			if (p.getRoles().contains(PeopleRole.NEW_CITOYEN)) {
+				p.getRoles().remove(PeopleRole.NEW_CITOYEN);
+				try {
+					p.setPixel(this.affecterPixel());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					//rajouter les attribut pour la page d'erreur
+					return "error";//TODO
+				}
+				p.getRoles().add(PeopleRole.CITOYEN);
 			}
-			p.getRoles().add(PeopleRole.CITOYEN);
+			peopleDetailsService.save(p);
+		    try {
+		        UserDetails userDetails = peopleDetailsService.loadUserByUsername(p.getUsername());
+		        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, p.getPassword(), userDetails.getAuthorities());
+		        
+		        if (usernamePasswordAuthenticationToken.isAuthenticated()) {
+		            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+		            System.err.println("OK");//log.debug(String.format("Auto login %s successfully!", email));
+		        }
+		    } catch (Exception e) {
+		    	System.err.println("NON OK");//log.error(e.getMessage(), e);
+		    }
+			return "redirect:/idCard/"+p.getId();
 		}
-		peopleDetailsService.save(p);
-		return "redirect:/";
+		return "/register";
+		
+		
+	}
+	
+	private People getCurentUser() {
+		UserDetails userD = (UserDetails)
+		SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return peopleDetailsService.findByUsername(userD.getUsername());
+	}
+	
+	@GetMapping("/idCard/{idCard}")
+	//@ResponseBody
+	public String carteIdentite(@PathVariable Long idCard,Model m) {
+		People p = getCurentUser();
+		if (p.getId() == idCard) {
+			m.addAttribute("people", p);
+			if (DeployInit.isLive) {
+				m.addAttribute("ressourceesDeploy", DeployInit.PathResourcesDeploy);
+			} else {
+				m.addAttribute("ressourceesDeploy", "");
+			}
+			return "carteIdentiter";//html a crée
+		}else {
+			return "police";			
+		}
+		
 	}
 
 	@GetMapping("/assotiation")
