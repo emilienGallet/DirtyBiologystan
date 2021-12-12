@@ -45,6 +45,8 @@ public class Citizen{
 	private final PasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 	@Column(nullable = false)
 	private String password;
+	@Column(nullable = false)
+	private Boolean isSansPixel;
 	@Column(nullable = true)
 	private String urlPersonalWebsite;
 	@Transient
@@ -52,10 +54,6 @@ public class Citizen{
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	List<Citizen> familiy;
-	
-	@ElementCollection(fetch = FetchType.EAGER)
-	@Enumerated(EnumType.STRING)
-	private Set<CitizenRole> roles = new HashSet<>();
 	
 	/**
 	 * C'est a chier de faire des bean pour des entité ...
@@ -125,14 +123,6 @@ public class Citizen{
 
 	public void setPassword(String password) {
 		this.password = bCryptPasswordEncoder.encode(password);;
-	}
-
-	public Set<CitizenRole> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<CitizenRole> roles) {
-		this.roles = roles;
 	}
 
 	public String getUrlPersonalWebsite() {

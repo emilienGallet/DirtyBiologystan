@@ -4,12 +4,12 @@ package org.dirtybiologystan.entity;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
- * @author Émilien Gallet
- * A comprendre rôle dans le sens du site et non dans le pays
+ * @author Jérémy Goutelle
  */
-public enum CitizenRole implements GrantedAuthority  {
-    USER,ADMIN;
 
+public enum PeopleRole implements GrantedAuthority  {
+    USER,ADMIN,CITOYEN,NEW_CITOYEN;
+	
     @Override
     public String getAuthority() {
         return this.name();

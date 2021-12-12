@@ -2,7 +2,7 @@ package org.dirtybiologystan;
 
 import javax.inject.Inject;
 
-import org.dirtybiologystan.entity.CitizenDetailsService;
+import org.dirtybiologystan.entity.PeopleDetailsService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,14 +19,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     @Inject
-    CitizenDetailsService peopleDetailsService;
+    PeopleDetailsService peopleDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-            .antMatchers("/","/drapeau","/register","/css/**","/img/**","/js/**","/h2-console/**").permitAll()
+            .antMatchers("/drapeau","/register","/css/**","/img/**","/js/**","/h2-console/**").permitAll()
             .anyRequest().authenticated()
-            .and().formLogin().defaultSuccessUrl("/my planning",true)
+            .and().formLogin().defaultSuccessUrl("/",true)
             .and().logout().logoutSuccessUrl("/");
             http.csrf().disable();
         http.headers().frameOptions().disable();
