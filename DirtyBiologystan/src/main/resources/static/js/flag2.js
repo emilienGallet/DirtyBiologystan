@@ -10,6 +10,14 @@ let app = Vue.createApp({
 		up: 0
 	}),
 	mounted: async function() {
+		/* fonction pour zoomer sur le drapeau */
+		
+		let canvas = document.getElementById('zoom');
+		let ctx = canvas.getContext('2d');
+		ctx.fillStyle = 'green';
+		ctx.fillRect(10, 10, 100, 100);
+		ctx.fillStyle = 'red';
+		ctx.fillRect(10, 20, 100, 100);
 		/*
 		Non utilisée, a été dev avant que j'ai fini'
 		Import de l'image : https://codati.ovh
@@ -61,7 +69,19 @@ let app = Vue.createApp({
 			</td>
 		</tr>
 	</table>-->
-	`
+	`,
+	methods: {
+		mouse_position: function(){
+		    var e = window.event;
+		
+		    var posX = e.clientX;
+		    var posY = e.clientY;
+		
+		    var t = setTimeout(mouse_position,100);
+		}
+		
+	}
+	
 });
 
 

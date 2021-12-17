@@ -24,23 +24,28 @@
 		<div id="frame2">
 			<table id="frontCard">
 				<tbody>
-					<tr>
-						<td id="RPDB" colspan="3">République Populaire du DirtyBiologistan</td>
+					<tr id="RPDB">
+						<td  colspan="3">République Populaire du DirtyBiologistan</td>
 					</tr>
-					<tr>
-						<td rowspan="4" id="photoCNI"><img th:attr="src=${ressourceesDeploy +'/img/PHOTOID.jpg'}"></td>
+					<tr id="photoCNI">
+						<td rowspan="4" ><img th:attr="src=${ressourceesDeploy +'/img/PHOTOID.jpg'}"></td>
 						<td id="CNI">Carte nationale d'identité</td>
 						<td id="Nationaliter" th:if="${people.isDirtybiologistanais()}">Nationalité&nbsp:&nbspDirtybiologistanaise</td>
 					</tr>
-					<tr>
-						<td id="Pseudo">Pseudo : [[${people.username}]]</td>
+					<tr id="Pseudo">
+						<td >Pseudo : [[${people.username}]]</td>
 					</tr>
-					<tr>
+					<tr id="prenomNom">
 						<td id="Prenom">Prénom : [[${people.firstname}]]</td>
 						<td id="Nom">Nom : [[${people.name}]]</td>
 					</tr>
-					<tr>
-						<td id="Position">Position pixel : [[${people.colone}]]:[[${people.ligne}]]</td>
+					<tr id="Position">
+						<td>Position pixel : [[${people.colone}]]:[[${people.ligne}]]</td>
+					</tr>
+					<tr id="bottomCardFront">
+						<td></td>
+						<td></td>
+						<td></td>
 					</tr>
 				</tbody>
 			</table>
