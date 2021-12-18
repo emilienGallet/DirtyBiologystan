@@ -77,4 +77,8 @@ public class Pixel {
 		this.attribuer = attribuer;
 	}
 
+	public static Pixel creatPixelTransaprent() {
+		return new Pixel(0, 0,"#0000");
+	}
+
 }
