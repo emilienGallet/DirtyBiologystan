@@ -24,7 +24,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-            .antMatchers("/drapeau","/register","/css/**","/img/**","/js/**","/h2-console/**").permitAll()
+            .antMatchers("/","/drapeau","/register","/css/**","/img/**","/js/**","/h2-console/**").permitAll()
             .anyRequest().authenticated()
             .and().formLogin().defaultSuccessUrl("/",true)
             .and().logout().logoutSuccessUrl("/");
