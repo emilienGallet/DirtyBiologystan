@@ -34,8 +34,8 @@
 						th:field="*{password}" placeholder="Password" required></td>
 				</tr>
 				<tr>
-					<td><select>
-							<option th:each="role : ${roles}">[[${role}]]</option>
+					<td><select th:field="*{roles}">
+							<option th:each="role : ${roles}" th:value="${role}">[[${role}]]</option>
 					</select></td>
 				</tr>
 				<tr>
