@@ -1,6 +1,7 @@
 package org.dirtybiologystan.controler;
 
 import java.awt.Color;
+import java.util.Optional;
 
 import javax.inject.Inject;
 
@@ -111,6 +112,18 @@ public class GeneralControler {
 			m.addAttribute("pixies", drapeau.drapeau);
 			m.addAttribute("ressourceesDeploy", "");
 		}
+
+		try {
+			People p = getCurentUser();
+			if (p.isCitoyen()) {
+				m.addAttribute("voisins", p.getVoisin(drapeau.drapeau,6));
+			}else {
+				m.addAttribute("voisins", null);
+			}
+		} catch (Exception e) {
+			m.addAttribute("voisins",null);
+		}
+
 		return "realFlag/flag";
 	}
 
@@ -123,14 +136,14 @@ public class GeneralControler {
 	 * 
 	 * @throws Exception
 	 */
-	//@PostMapping("/pixel")
-	private Pixel affecterPixel() throws Exception{
+	// @PostMapping("/pixel")
+	private Pixel affecterPixel() throws Exception {
 		// c.setPixel(remplacer par la ligne du dessous);
-		UserDetails userD = (UserDetails)
-		SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		People p = peopleDetailsService.findByUsername(userD.getUsername());
-		return drapeau.rajouterNewPixel("#FF2345");
+		// UserDetails userD = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		// People p = peopleDetailsService.findByUsername(userD.getUsername());
+		return drapeau.rajouterNewPixel("#0000");//pixel TRRANSPARENT
 	}
+
 	@GetMapping("/pixel")
 	public String modifierPixel() {
 		try {
@@ -161,60 +174,69 @@ public class GeneralControler {
 		if (bindingResult.hasErrors()) {
 			return "/register";
 		}
-		if(p.defineRoleGranted()) {
+		if (p.defineRoleGranted()) {
 			if (p.getRoles().contains(PeopleRole.NEW_CITOYEN)) {
 				p.getRoles().remove(PeopleRole.NEW_CITOYEN);
 				try {
 					p.setPixel(this.affecterPixel());
+					p.setIsSansPixel(false);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-					//rajouter les attribut pour la page d'erreur
-					return "error";//TODO
+					// rajouter les attribut pour la page d'erreur
+					return "error";// TODO
 				}
 				p.getRoles().add(PeopleRole.CITOYEN);
+			}else if(p.getRoles().contains(PeopleRole.CITOYEN)){
+				//TODO
+				// Mettre un mdp pour pouvoir utiliser ce pixel
+				// procédure de vérification manuel par silicyium
+				return null;
 			}
 			peopleDetailsService.save(p);
-		    try {
-		        UserDetails userDetails = peopleDetailsService.loadUserByUsername(p.getUsername());
-		        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(userDetails, p.getPassword(), userDetails.getAuthorities());
-		        
-		        if (usernamePasswordAuthenticationToken.isAuthenticated()) {
-		            SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-		            System.err.println("OK");//log.debug(String.format("Auto login %s successfully!", email));
-		        }
-		    } catch (Exception e) {
-		    	System.err.println("NON OK");//log.error(e.getMessage(), e);
-		    }
-			return "redirect:/idCard/"+p.getId();
+			try {
+				UserDetails userDetails = peopleDetailsService.loadUserByUsername(p.getUsername());
+				UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+						userDetails, p.getPassword(), userDetails.getAuthorities());
+
+				if (usernamePasswordAuthenticationToken.isAuthenticated()) {
+					SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+					System.err.println("OK");// log.debug(String.format("Auto login %s successfully!", email));
+				}
+			} catch (Exception e) {
+				System.err.println("NON OK");// log.error(e.getMessage(), e);
+			}
+			return "redirect:/idCard/" + p.getId();
 		}
 		return "/register";
-		
-		
+
 	}
-	
-	private People getCurentUser() {
-		UserDetails userD = (UserDetails)
-		SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+	private People getCurentUser() throws Exception {
+		UserDetails userD = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return peopleDetailsService.findByUsername(userD.getUsername());
 	}
-	
+
 	@GetMapping("/idCard/{idCard}")
-	//@ResponseBody
-	public String carteIdentite(@PathVariable Long idCard,Model m) {
-		People p = getCurentUser();
-		if (p.getId() == idCard) {
-			m.addAttribute("people", p);
-			if (DeployInit.isLive) {
-				m.addAttribute("ressourceesDeploy", DeployInit.PathResourcesDeploy);
+	// @ResponseBody
+	public String carteIdentite(@PathVariable Long idCard, Model m) {
+		try {
+			People p = getCurentUser();
+			if (p.getId() == idCard) {
+				m.addAttribute("people", p);
+				if (DeployInit.isLive) {
+					m.addAttribute("ressourceesDeploy", DeployInit.PathResourcesDeploy);
+				} else {
+					m.addAttribute("ressourceesDeploy", "");
+				}
+				return "carteIdentiter";// html a crée
 			} else {
-				m.addAttribute("ressourceesDeploy", "");
+				return "police";
 			}
-			return "carteIdentiter";//html a crée
-		}else {
-			return "police";			
+		} catch (Exception e) {
+			return "police";
 		}
-		
+
 	}
 
 	@GetMapping("/assotiation")

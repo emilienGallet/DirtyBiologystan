@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeMap;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -181,6 +182,8 @@ public class People {
 
 	public void setPixel(Pixel pixel) {
 		this.pixel = pixel;
+		this.colone = pixel.getColone().toString();
+		this.ligne = pixel.getLigne().toString();
 	}
 
 	public Boolean getIsSansPixel() {
@@ -235,9 +238,48 @@ public class People {
 		if (this.getRoles().containsAll(spr)) {
 			return false;
 		}
+		
 		//TODO les autre possibilités
 		
 		return true;
+	}
+
+	public boolean isCitoyen() {
+		if(roles.contains(PeopleRole.CITOYEN)) {
+			return true;
+		}
+		return false;
+	}
+
+	public ArrayList<ArrayList<Pixel>> getVoisin(TreeMap<Integer, TreeMap<Integer, Pixel>> drapeau, int i) {
+		Pixel p =  this.getPixel();
+		ArrayList<Pixel> plist = new ArrayList<>();
+		// Parcour de ligne puis colone de gauche a droite
+		ArrayList<ArrayList<Pixel>> tab= new ArrayList<>(i+1);
+		int j = i/2;
+		for (int k = p.getLigne()-j; k < p.getLigne()+j+1; k++) {
+			TreeMap<Integer, Pixel> ligne = drapeau.get(k);
+			if (ligne == null) {
+				//rempli tout la ligne avec des pixel vide
+				// #0000
+				for (int l = 0; l < i+1; l++) {
+					plist.add(Pixel.creatPixelTransaprent());
+					tab.add(plist);
+				}
+			}else {
+				int col = p.getColone();
+				for (int l = col-j; l < col+j+1; l++) {
+					Pixel p2 = ligne.get(l);
+					if (p2==null) {
+						plist.add(Pixel.creatPixelTransaprent());
+					}else {
+						plist.add(p2);
+					}
+				}
+			}
+			plist = new ArrayList<>();
+		}
+		return tab;
 	}
 
 }

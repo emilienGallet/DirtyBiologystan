@@ -38,7 +38,7 @@ public class PeopleDetailsService implements UserDetailsService {
     	String s = people.getPassword();
         people.setPassword(bCryptPasswordEncoder.encode(people.getPassword()));
         bCryptPasswordEncoder.matches(s, people.getPassword());
-        people.getRoles().add(PeopleRole.USER);
+        //people.getRoles().add(PeopleRole.USER);
         peopleList.save(people);
     }
 
