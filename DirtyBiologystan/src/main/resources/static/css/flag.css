@@ -13,6 +13,11 @@
 	height: 1px;
 }
 
+#lesVoisins td {
+    width: 20px;
+    height: 20px;
+}
+
 #flag td {
 	width: 1px;
 	height: 1px;

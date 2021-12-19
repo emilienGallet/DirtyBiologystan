@@ -25,11 +25,11 @@
 	</table>
 	
 	<table id="lesVoisins">
-		<tr th:if="${voisins}==null" th:each="ligne : ${voisins}">
+		<tr th:if="${voisins}!=null" th:each="ligne : ${voisins}">
 			<!-- <td th:text="${instance.key}">keyvalue</td> -->
-			<td th:each="pixel : ${ligne.value}"
-				th:id="${pixel.value.colone}+':'+${pixel.value.ligne}"
-				th:style="'background-color : '+${pixel.value.couleur}+';'"></td>
+			<td th:each="pixel : ${ligne}"
+				th:id="${pixel.colone}+':'+${pixel.ligne}"
+				th:style="'background-color : '+${pixel.couleur}+';'"></td>
 		</tr>
 	</table>
 	<canvas id="zoom" width="300" height="100">

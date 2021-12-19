@@ -252,7 +252,7 @@ public class People {
 	}
 
 	public ArrayList<ArrayList<Pixel>> getVoisin(TreeMap<Integer, TreeMap<Integer, Pixel>> drapeau, int i) {
-		Pixel p =  this.getPixel();
+		Pixel p =  this.getPixel(drapeau);
 		ArrayList<Pixel> plist = new ArrayList<>();
 		// Parcour de ligne puis colone de gauche a droite
 		ArrayList<ArrayList<Pixel>> tab= new ArrayList<>(i+1);
@@ -264,8 +264,8 @@ public class People {
 				// #0000
 				for (int l = 0; l < i+1; l++) {
 					plist.add(Pixel.creatPixelTransaprent());
-					tab.add(plist);
 				}
+				tab.add(plist);
 			}else {
 				int col = p.getColone();
 				for (int l = col-j; l < col+j+1; l++) {
@@ -276,10 +276,15 @@ public class People {
 						plist.add(p2);
 					}
 				}
+				tab.add(plist);
 			}
 			plist = new ArrayList<>();
 		}
 		return tab;
+	}
+
+	private Pixel getPixel(TreeMap<Integer, TreeMap<Integer, Pixel>> drapeau) {
+		return drapeau.get(Integer.parseInt(this.ligne)).get(Integer.parseInt(this.colone));
 	}
 
 }
