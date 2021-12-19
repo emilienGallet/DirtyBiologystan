@@ -18,6 +18,10 @@
     height: 20px;
 }
 
+#lesVoisins *{
+	border: 1px antiquewhite solid;
+}
+
 #flag td {
 	width: 1px;
 	height: 1px;

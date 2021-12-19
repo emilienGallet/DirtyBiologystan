@@ -12,7 +12,7 @@ let app = Vue.createApp({
 	mounted: async function() {
 		/* fonction pour zoomer sur le drapeau */
 		
-		let canvas = document.getElementById('zoom');
+		/*let canvas = document.getElementById('zoom');
 		let ctx = canvas.getContext('2d');
 		ctx.fillStyle = 'green';
 		ctx.fillRect(10, 10, 100, 100);
