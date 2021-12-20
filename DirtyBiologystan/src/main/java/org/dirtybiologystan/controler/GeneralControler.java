@@ -126,6 +126,19 @@ public class GeneralControler {
 
 		return "realFlag/flag";
 	}
+	@PostMapping("/drapeau")
+	@ResponseBody
+	public String modifierPixel(@RequestBody String couleur) {
+		try {
+			System.out.println(couleur);
+			//drapeau.rajouterNewPixel("#FF2345");
+			return "yes";
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "no";
+		}
+	}
 
 	public String error() {
 		return "error";
@@ -144,17 +157,6 @@ public class GeneralControler {
 		return drapeau.rajouterNewPixel("#0000");//pixel TRRANSPARENT
 	}
 
-	@GetMapping("/pixel")
-	public String modifierPixel() {
-		try {
-			drapeau.rajouterNewPixel("#FF2345");
-			return "redirect:/drapeau";
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return "redirect:/";
-		}
-	}
 
 	@GetMapping("/register")
 	public String register(Model m) {

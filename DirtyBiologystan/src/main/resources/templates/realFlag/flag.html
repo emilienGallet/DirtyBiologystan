@@ -25,6 +25,7 @@
 
 	<div class="inlineBlock" th:if="${voisins}!=null">
 		<div th:replace="~{pixelColor:: baseLayout()}"></div>
+		<script type="text/javascript" th:attr="src=${ressourceesDeploy +'/js/pixelColor.js'}"></script>
 	</div>
 
 	<table id="leDrapeau">
@@ -37,7 +38,6 @@
 	<footer th:replace="~{footer:: baseLayout()}"></footer>
 	<script src="https://unpkg.com/vue@3.2.21/dist/vue.global.js"></script>
 	<script type="text/javascript" th:attr="src=${ressourceesDeploy +'/js/flag2.js'}"></script>
-	<script th:if="${voisins}!=null" type="text/javascript" th:attr="src=${ressourceesDeploy +'/js/pixelColor.js'}"></script>
 </body>
 
 </html>

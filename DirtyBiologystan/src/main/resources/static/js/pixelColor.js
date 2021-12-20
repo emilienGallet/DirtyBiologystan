@@ -1,3 +1,21 @@
+async function editerPixel(){
+	
+	let value = document.getElementById('hex01').innerText;
+	console.log(value)
+	let res = await fetch('/drapeau', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify(value)
+				});
+				let body = await res.json();
+				console.log(body)
+				if(body=="ok"){
+					console.log("modifier")
+				}else{
+					console.log("non modifier" + body)
+				}
+}
+
 function submitOnEnter(e) {
     keyboardKey = e.which || e.keyCode;
     if (keyboardKey == 13) {
