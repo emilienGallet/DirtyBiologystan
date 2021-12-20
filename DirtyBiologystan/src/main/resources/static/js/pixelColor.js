@@ -16,19 +16,6 @@ async function editerPixel(){
 				}
 }
 
-function displayFlag(boolean){
-	let x = document.getElementById('leDrapeau').style.display
-	if(x=="none"){
-		console.log("afficher drapeau")
-		document.getElementById('leDrapeau').style.display="inherit"
-		document.getElementById('submit').value="Cacher le drapeau"
-	}else{
-		console.log("cacher drapeau")
-		document.getElementById('leDrapeau').style.display="none"
-		document.getElementById('submit').value="Afficher le drapeau"
-	}
-}
-
 function submitOnEnter(e) {
     keyboardKey = e.which || e.keyCode;
     if (keyboardKey == 13) {

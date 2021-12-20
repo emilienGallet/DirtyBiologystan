@@ -12,15 +12,18 @@
 </head>
 
 <body>
+	<script type="text/javascript" th:attr="src=${ressourceesDeploy +'/js/flag2.js'}"></script>
 	<header th:replace="~{header:: baseLayout()}"></header>
 	<p>[[${#lists.size(pixies)}]]</p>
 	<!-- ATTENTION : COLONE : LIGNE .-->
 	<table th:if="${voisins}!=null" class="parametrage inlineBlock" id="lesVoisins">
 		<thead>
-			<tr><th colspan="7">Vous et vos pixels voisins</th></tr>
+			<tr>
+				<th colspan="7">Vous et vos pixels voisins</th>
+			</tr>
 		</thead>
 		<tbody>
-				<tr th:each="ligne : ${voisins}">
+			<tr th:each="ligne : ${voisins}">
 				<td th:each="pixel : ${ligne}" th:id="${pixel.colone}+':'+${pixel.ligne}"
 					th:style="'background-color : '+${pixel.couleur}+';'"></td>
 			</tr>
@@ -30,9 +33,9 @@
 	<div class="inlineBlock" th:if="${voisins}!=null">
 		<div th:replace="~{pixelColor:: baseLayout()}"></div>
 		<script type="text/javascript" th:attr="src=${ressourceesDeploy +'/js/pixelColor.js'}"></script>
-		
-	<input class="inlineBlock" id="submit" type="button" onclick="displayFlag()" value="Afficher le drapeau">
+
 	</div>
+	<input class="inlineBlock" id="displayFlag" type="button" onclick="displayFlag()" value="Afficher le drapeau">
 	<table id="leDrapeau" style="display: none;">
 		<tr th:each="ligne : ${pixies}">
 			<td th:each="pixel : ${ligne.value}" th:id="${pixel.value.colone}+':'+${pixel.value.ligne}"
@@ -41,8 +44,7 @@
 	</table>
 
 	<footer th:replace="~{footer:: baseLayout()}"></footer>
-	<script src="https://unpkg.com/vue@3.2.21/dist/vue.global.js"></script>
-	<script type="text/javascript" th:attr="src=${ressourceesDeploy +'/js/flag2.js'}"></script>
+	<!--<script src="https://unpkg.com/vue@3.2.21/dist/vue.global.js"></script>-->
 </body>
 
 </html>
