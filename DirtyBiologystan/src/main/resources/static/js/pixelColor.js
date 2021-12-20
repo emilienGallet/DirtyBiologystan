@@ -8,11 +8,11 @@ async function editerPixel(){
 					body: JSON.stringify(value)
 				});
 				let body = await res.json();
-				console.log(body)
-				if(body=="ok"){
-					console.log("modifier")
+				console.log(body);
+				if(body.result==="yes"){
+					console.log("modifier");
 				}else{
-					console.log("non modifier" + body)
+					console.log('non modifier');
 				}
 }
 
