@@ -17,6 +17,9 @@
     width: 20px;
     height: 20px;
 }
+#lesVoisins th {
+    text-align: center;
+}
 
 #lesVoisins *{
 	border: 1px antiquewhite solid;

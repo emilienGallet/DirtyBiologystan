@@ -15,20 +15,25 @@
 	<header th:replace="~{header:: baseLayout()}"></header>
 	<p>[[${#lists.size(pixies)}]]</p>
 	<!-- ATTENTION : COLONE : LIGNE .-->
-	<table class="parametrage inlineBlock" id="lesVoisins">
-		<tr th:if="${voisins}!=null" th:each="ligne : ${voisins}">
-			<!-- <td th:text="${instance.key}">ke yvalue</td> -->
-			<td th:each="pixel : ${ligne}" th:id="${pixel.colone}+':'+${pixel.ligne}"
-				th:style="'background-color : '+${pixel.couleur}+';'"></td>
-		</tr>
+	<table th:if="${voisins}!=null" class="parametrage inlineBlock" id="lesVoisins">
+		<thead>
+			<tr><th colspan="7">Vous et vos pixels voisins</th></tr>
+		</thead>
+		<tbody>
+				<tr th:each="ligne : ${voisins}">
+				<td th:each="pixel : ${ligne}" th:id="${pixel.colone}+':'+${pixel.ligne}"
+					th:style="'background-color : '+${pixel.couleur}+';'"></td>
+			</tr>
+		</tbody>
 	</table>
 
 	<div class="inlineBlock" th:if="${voisins}!=null">
 		<div th:replace="~{pixelColor:: baseLayout()}"></div>
 		<script type="text/javascript" th:attr="src=${ressourceesDeploy +'/js/pixelColor.js'}"></script>
+		
+	<input class="inlineBlock" id="submit" type="button" onclick="displayFlag()" value="Afficher le drapeau">
 	</div>
-
-	<table id="leDrapeau">
+	<table id="leDrapeau" style="display: none;">
 		<tr th:each="ligne : ${pixies}">
 			<td th:each="pixel : ${ligne.value}" th:id="${pixel.value.colone}+':'+${pixel.value.ligne}"
 				th:style="'background-color : '+${pixel.value.couleur}+';'"></td>

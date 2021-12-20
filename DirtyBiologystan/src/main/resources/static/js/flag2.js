@@ -36,7 +36,7 @@ let app = Vue.createApp({
 		console.debug(this.carte, this.up)
 		*/
 		
-		let stack = document.getElementById('leDrapeau');
+		/*let stack = document.getElementById('leDrapeau');
 		stack.style.display = "inherit";/*
 		let tbody = stack.children[0];
 		let firstLine = stack.children[0].children[0];
