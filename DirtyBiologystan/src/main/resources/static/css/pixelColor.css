@@ -1,0 +1,81 @@
+@charset "UTF-8";
+
+.parametrage {
+    display: inline-block;
+}
+#pixelEditing{
+	background-color: #736aa8;
+}
+
+.inlineBlock{
+	display: inline-block;
+}
+
+#afficheCouleur{
+	height: 20px;
+	width: 20px;
+}
+
+.tableslider {
+    width: 150px;
+}
+
+.hidden{
+	display: none;
+}
+.colorinput {
+			width: 105px;
+			padding: 25px 0 15px 0;
+		}
+
+		.colorslider {
+			padding: 30px 25px 15px 20px;
+		}
+
+		.tableslider {
+			width: 100%;
+			border-collapse: collapse;
+		}
+
+		.pointer {
+			text-align: center;
+			display: none;
+			position: absolute;
+			top: -14px;
+			left: -2px;
+		}
+
+		.pointer div {
+			background-color: #ffffff;
+			border: 1px solid #aaaaaa;
+			height: 24px;
+			width: 40px;
+			padding: 2px 4px;
+			position: absolute;
+			text-align: center;
+			top: -14px;
+			left: -15px;
+			color: #000000;
+			border-radius: 4px;
+			font: 14px verdana;
+		}
+
+		.pointer div::selection {
+			color: #000000;
+			background: #ffffff;
+		}
+
+		.pointer i {
+			color: #aaaaaa
+		}
+
+		@media screen and (max-width:600px) {
+			.colorinput {
+				padding: 25px 0 0 0;
+			}
+
+			.colorslider {
+				width: 100%;
+				padding: 30px 25px 15px 20px;
+			}
+		}
