@@ -49,6 +49,8 @@ public class People {
 	private String colone;
 	@Column(nullable = false)
 	private String ligne;
+	@Column(nullable = false)
+	private String couleur;
 	@Column(nullable = true)
 	private String urlPersonalWebsite;
 	@Column(nullable = false)
@@ -184,6 +186,7 @@ public class People {
 		this.pixel = pixel;
 		this.colone = pixel.getColone().toString();
 		this.ligne = pixel.getLigne().toString();
+		this.couleur = pixel.getCouleur();
 	}
 
 	public Boolean getIsSansPixel() {
@@ -224,6 +227,14 @@ public class People {
 
 	public void setLieuVR(String lieuVR) {
 		this.lieuVR = lieuVR;
+	}
+
+	public String getCouleur() {
+		return couleur;
+	}
+
+	public void setCouleur(String couleur) {
+		this.couleur = couleur;
 	}
 
 	/**
@@ -283,7 +294,7 @@ public class People {
 		return tab;
 	}
 
-	private Pixel getPixel(TreeMap<Integer, TreeMap<Integer, Pixel>> drapeau) {
+	public Pixel getPixel(TreeMap<Integer, TreeMap<Integer, Pixel>> drapeau) {
 		return drapeau.get(Integer.parseInt(this.ligne)).get(Integer.parseInt(this.colone));
 	}
 

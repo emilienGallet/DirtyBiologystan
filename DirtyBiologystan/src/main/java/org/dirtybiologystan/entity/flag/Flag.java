@@ -170,6 +170,7 @@ public class Flag {
 		x= toGive.getLigne();
 		y= toGive.getColone();
 		
+		//Lancer ceci en thread a part mais no time
 		if (drapeau.get(x)!=null) {
 			drapeau.get(x).put(y, toGive);//améliorable
 		}else{

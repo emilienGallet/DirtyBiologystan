@@ -131,12 +131,19 @@ public class GeneralControler {
 	public String modifierPixel(@RequestBody String couleur) {
 		try {
 			System.out.println(couleur);
+			People p = getCurentUser();
+			if (p==null) {
+				return "{\"result\":\"no\"}";
+			}
+			p.getPixel(this.drapeau.drapeau);
 			//drapeau.rajouterNewPixel("#FF2345");
-			return "yes";
+			System.out.println("ok");
+			return "{\"result\":\"yes\"}";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "no";
+			System.out.println("NON");
+			return "{\"result\":\"no\"}";
 		}
 	}
 
