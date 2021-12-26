@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+/**
+ * Bouton pour demander la nationalité	
+ */
+#register {
+	text-align: center;
+	background-color: grey;
+	border-radius: 5px; 
+}
+
+#register hr{
+	margin: 1px;
+}
