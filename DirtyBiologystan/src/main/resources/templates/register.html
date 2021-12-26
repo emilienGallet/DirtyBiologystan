@@ -1,17 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" th:attr="href=${ressourceesDeploy +'/css/grayscale-boostrap.css'}">
-<link rel="stylesheet" th:attr="href=${ressourceesDeploy +'/css/flag.css'}">
-<link rel="stylesheet" th:attr="href=${ressourceesDeploy +'/css/menu.css'}">
-
-<title>Formlaire de demande de la nationalité du
-	DirtyBiologistan</title>
-</head>
-
+<head th:replace="~{head:: baseLayout(titre='Formlaire de demande de la nationalité du
+	DirtyBiologistan')}"></head>
 <body>
 	<header th:replace="~{header:: baseLayout()}"></header>
 
