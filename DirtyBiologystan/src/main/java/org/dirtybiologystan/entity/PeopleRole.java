@@ -8,8 +8,9 @@ import org.springframework.security.core.GrantedAuthority;
  */
 
 public enum PeopleRole implements GrantedAuthority  {
-    CITOYEN,
-    NEW_CITOYEN/*,
+	NEW_CITOYEN,
+	CITOYEN
+    /*,
     USER,
     WEBMASTER,
     MODERATEUR,
