@@ -15,7 +15,8 @@ import org.springframework.stereotype.Component;
 
 
 /**
- * @author Jérémy Goutelle
+ * @author Jérémy Goutelle for IConvoit Project
+ * Edited by Émilien Gallet for the dirtybiologistan.
  */
 
 @Component
@@ -37,10 +38,7 @@ public class PeopleDetailsService implements UserDetailsService {
     }
 
     public void save(People people) {
-    	String s = people.getPassword();
         people.setPassword(bCryptPasswordEncoder.encode(people.getPassword()));
-        bCryptPasswordEncoder.matches(s, people.getPassword());
-        //people.getRoles().add(PeopleRole.USER);
         peopleList.save(people);
     }
 

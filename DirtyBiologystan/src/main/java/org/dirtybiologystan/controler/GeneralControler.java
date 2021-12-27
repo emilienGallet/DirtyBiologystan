@@ -1,23 +1,16 @@
 package org.dirtybiologystan.controler;
 
-import java.awt.Color;
-import java.util.Optional;
 
 import javax.inject.Inject;
 
 import org.dirtybiologystan.DeployInit;
-import org.dirtybiologystan.entity.Citizen;
 import org.dirtybiologystan.entity.People;
 import org.dirtybiologystan.entity.PeopleDetailsService;
 import org.dirtybiologystan.entity.PeopleRole;
 import org.dirtybiologystan.entity.PeopleValidator;
 import org.dirtybiologystan.entity.flag.Flag;
 import org.dirtybiologystan.entity.flag.Pixel;
-import org.dirtybiologystan.factory.CitizenFactory;
-import org.dirtybiologystan.factory.PeopleFactory;
 import org.dirtybiologystan.repository.AssociationRepository;
-import org.dirtybiologystan.repository.CitizenRepository;
-import org.springframework.context.annotation.Role;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,13 +22,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @version 1.0
  * @author emilien Goal : Website of the newest country : DirtyBiologistan
- *
+ * A spliter en plusieurs controlleur en V2
  */
 @Controller
 public class GeneralControler {
@@ -47,17 +39,23 @@ public class GeneralControler {
 	PeopleValidator peopleValidator;
 
 	@Inject
-	CitizenRepository citizenList;
-
-	@Inject
 	AssociationRepository assotiations;
 
 	private Flag drapeau = new Flag();
 
+	/**
+	 * Constructeur permetant au démarage l'import des données issue de Codati.
+	 * @throws Exception
+	 */
 	public GeneralControler() throws Exception {
 		drapeau.chargerDataFromFouloscopieAndCodati();
 	}
 
+	/**
+	 * 
+	 * @param m le modèle
+	 * @return l'index du site web en thymeleaf
+	 */
 	@GetMapping("/")
 	public String home(Model m) {
 		if (DeployInit.isLive) {
@@ -71,13 +69,17 @@ public class GeneralControler {
 	/**
 	 * Retourne la constitution de la micronation
 	 * 
-	 * @return
+	 * @return constitution.html
 	 */
 	@GetMapping("/constitution")
 	public String consitution() {
 		return "constitution";
 	}
 
+	/**
+	 * 
+	 * @return citoyen.html
+	 */
 	@GetMapping("/citoyens")
 	public String citoyens() {
 		return "citoyens";
@@ -93,18 +95,17 @@ public class GeneralControler {
 		return "citoyens";
 	}
 
+	/**
+	 * 
+	 * @param m
+	 * @return drapeau.html avec les param passer a thymeleaf.
+	 * @throws Exception
+	 */
 	@GetMapping("/drapeau")
 	public String flag(Model m) throws Exception {
-		// Integer couleur = 0x000000;
-		/*
-		 * for (int i = 0; i < 100000/*1056
-		 *//*
-			 * ; i++) { this.affecterPixel(null,"#FF2345"); //couleur +=50; }
-			 */
-
-		int xflag = drapeau.drapeau.size();// a remplacer mar méthode dans Flag.class
-		int yflag = drapeau.drapeau.get(1).size();
-		System.err.println(yflag + "*" + xflag);
+		/**
+		 * La localisation des resources est différente lors du déploiment.
+		 */
 		if (DeployInit.isLive) {
 			m.addAttribute("pixies", drapeau.drapeau);
 			m.addAttribute("ressourceesDeploy", DeployInit.PathResourcesDeploy);
@@ -112,7 +113,7 @@ public class GeneralControler {
 			m.addAttribute("pixies", drapeau.drapeau);
 			m.addAttribute("ressourceesDeploy", "");
 		}
-
+		//Si l'utilisateur est connecter, alors il peux afficher ces pixels voisins et parametrer son pixel.
 		try {
 			People p = getCurentUser();
 			if (p.isCitoyen()) {
@@ -121,11 +122,17 @@ public class GeneralControler {
 				m.addAttribute("voisins", null);
 			}
 		} catch (Exception e) {
+		//Sinon on n'affiche rien
 			m.addAttribute("voisins",null);
 		}
 
 		return "realFlag/flag";
 	}
+	/**
+	 * 
+	 * @param couleur
+	 * @return en JSON la réponse oui ou non si le pixel a été bien modifier
+	 */
 	@PostMapping("/drapeau")
 	@ResponseBody
 	public String modifierPixel(@RequestBody String couleur) {
@@ -147,6 +154,10 @@ public class GeneralControler {
 		}
 	}
 
+	/**
+	 * 
+	 * @return error.html
+	 */
 	public String error() {
 		return "error";
 	}
@@ -156,17 +167,21 @@ public class GeneralControler {
 	 * 
 	 * @throws Exception
 	 */
-	// @PostMapping("/pixel")
 	private Pixel affecterPixel() throws Exception {
-		// c.setPixel(remplacer par la ligne du dessous);
-		// UserDetails userD = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		// People p = peopleDetailsService.findByUsername(userD.getUsername());
 		return drapeau.rajouterNewPixel("#0000");//pixel TRRANSPARENT
 	}
 
 
+	/**
+	 * 
+	 * @param m
+	 * @return register.html
+	 */
 	@GetMapping("/register")
 	public String register(Model m) {
+		if (getCurentUserOrNull()!=null) {
+			return "redirect:/login";
+		}
 		m.addAttribute("register", new People());
 		m.addAttribute("roles", PeopleRole.values());
 		if (DeployInit.isLive) {
@@ -177,6 +192,13 @@ public class GeneralControler {
 		return "register";
 	}
 
+	/**
+	 * 
+	 * @param p
+	 * @param bindingResult
+	 * @return la route pour afficher la carte d'identité 
+	 * sinon renvoie sur le formulaire ou la route de la police (non définie)
+	 */
 	@PostMapping("/register")
 	public String addUser(@ModelAttribute("register") People p, BindingResult bindingResult) {
 		peopleValidator.validate(p, bindingResult);
@@ -190,21 +212,21 @@ public class GeneralControler {
 					p.setPixel(this.affecterPixel());
 					p.setIsSansPixel(false);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
+					// TODO rajouter les attribut pour la page d'erreur 
 					e.printStackTrace();
-					// rajouter les attribut pour la page d'erreur
-					return "error";// TODO
+					return "error";
 				}
 				p.getRoles().add(PeopleRole.CITOYEN);
 			}else if(p.getRoles().contains(PeopleRole.CITOYEN)){
-				//TODO
+				// TODO
 				// Mettre un mdp pour pouvoir utiliser ce pixel
 				// procédure de vérification manuel par silicyium
 				// En attendant ... 
 				if(!peopleDetailsService.checkID(p,drapeau)) {
-					return "police";					
+					return "redirect:/police";//renvoyer sur une convocation au comissariat x)					
 				}
 			}
+			// Tout est ok on va enregistrer la personne et l'auto connecter.
 			peopleDetailsService.save(p);
 			try {
 				UserDetails userDetails = peopleDetailsService.loadUserByUsername(p.getUsername());
@@ -216,6 +238,7 @@ public class GeneralControler {
 					System.err.println("OK");// log.debug(String.format("Auto login %s successfully!", email));
 				}
 			} catch (Exception e) {
+				//Partie non atteinte normalement
 				System.err.println("NON OK");// log.error(e.getMessage(), e);
 			}
 			return "redirect:/idCard/" + p.getId();
@@ -223,14 +246,33 @@ public class GeneralControler {
 		return "/register";
 
 	}
+	
+	/**
+	 * 
+	 * @return la personne conecter ou renvoie la valeu null
+	 */
+	private People getCurentUserOrNull() {
+		try {
+			return getCurentUser();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			return null;
+		}
+	}
 
 	private People getCurentUser() throws Exception {
 		UserDetails userD = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		return peopleDetailsService.findByUsername(userD.getUsername());
 	}
 
+	/**
+	 * 
+	 * @param idCard
+	 * @param m
+	 * @return carteIdentiter.html
+	 * sinon la route de la police (non définie)
+	 */
 	@GetMapping("/idCard/{idCard}")
-	// @ResponseBody
 	public String carteIdentite(@PathVariable Long idCard, Model m) {
 		try {
 			People p = getCurentUser();
@@ -243,10 +285,10 @@ public class GeneralControler {
 				}
 				return "carteIdentiter";// html a crée
 			} else {
-				return "police";
+				return "redirect:/police";
 			}
 		} catch (Exception e) {
-			return "police";
+			return "redirect:/police";
 		}
 
 	}

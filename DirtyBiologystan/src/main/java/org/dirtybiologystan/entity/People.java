@@ -75,7 +75,7 @@ public class People {
 	private Set<PeopleRole> roles = new HashSet<>();
 
 	@ManyToMany
-	private List<People> friend = new ArrayList<People>();
+	private List<People> family = new ArrayList<People>();
 
 	public People() {
 
@@ -149,11 +149,11 @@ public class People {
 	}
 
 	public List<People> getFriend() {
-		return friend;
+		return family;
 	}
 
 	public void setFriend(List<People> friend) {
-		this.friend = friend;
+		this.family = friend;
 	}
 
 	public String getColone() {
