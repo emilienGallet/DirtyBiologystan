@@ -1,6 +1,8 @@
 package org.dirtybiologystan.controler;
 
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.dirtybiologystan.DeployInit;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -33,7 +36,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class GeneralControler {
 
 	@Inject
-	PeopleDetailsService peopleDetailsService;
+	PeopleDetailsService pds;
 
 	@Inject
 	PeopleValidator peopleValidator;
@@ -63,6 +66,7 @@ public class GeneralControler {
 		} else {
 			m.addAttribute("ressourceesDeploy", "");
 		}
+		m.addAttribute("connecter", getCurentUserOrNull());
 		return "index";
 	}
 
@@ -72,7 +76,13 @@ public class GeneralControler {
 	 * @return constitution.html
 	 */
 	@GetMapping("/constitution")
-	public String consitution() {
+	public String consitution(Model m) {
+		if (DeployInit.isLive) {
+			m.addAttribute("ressourceesDeploy", DeployInit.PathResourcesDeploy);
+		} else {
+			m.addAttribute("ressourceesDeploy", "");
+		}
+		m.addAttribute("isConnected", getCurentUserOrNull());
 		return "constitution";
 	}
 
@@ -81,7 +91,13 @@ public class GeneralControler {
 	 * @return citoyen.html
 	 */
 	@GetMapping("/citoyens")
-	public String citoyens() {
+	public String citoyens(Model m) {
+		if (DeployInit.isLive) {
+			m.addAttribute("ressourceesDeploy", DeployInit.PathResourcesDeploy);
+		} else {
+			m.addAttribute("ressourceesDeploy", "");
+		}
+		m.addAttribute("isConnected", getCurentUserOrNull());
 		return "citoyens";
 	}
 
@@ -91,7 +107,13 @@ public class GeneralControler {
 	 * @return le tag de la personne
 	 */
 	@GetMapping("/citoyens/{colone}/{ligne}")
-	public String citoyensID() {
+	public String citoyensID(Model m) {
+		if (DeployInit.isLive) {
+			m.addAttribute("ressourceesDeploy", DeployInit.PathResourcesDeploy);
+		} else {
+			m.addAttribute("ressourceesDeploy", "");
+		}
+		m.addAttribute("isConnected", getCurentUserOrNull());
 		return "citoyens";
 	}
 
@@ -118,12 +140,15 @@ public class GeneralControler {
 			People p = getCurentUser();
 			if (p.isCitoyen()) {
 				m.addAttribute("voisins", p.getVoisin(drapeau.drapeau,6));
+				m.addAttribute("isConnected", p);
 			}else {
 				m.addAttribute("voisins", null);
+				m.addAttribute("isConnected", null);
 			}
 		} catch (Exception e) {
 		//Sinon on n'affiche rien
 			m.addAttribute("voisins",null);
+			m.addAttribute("isConnected", null);
 		}
 
 		return "realFlag/flag";
@@ -158,7 +183,8 @@ public class GeneralControler {
 	 * 
 	 * @return error.html
 	 */
-	public String error() {
+	public String error(Model m) {
+		m.addAttribute("isConnected", getCurentUserOrNull());
 		return "error";
 	}
 
@@ -180,7 +206,7 @@ public class GeneralControler {
 	@GetMapping("/register")
 	public String register(Model m) {
 		if (getCurentUserOrNull()!=null) {
-			return "redirect:/login";
+			return "redirect:/";
 		}
 		m.addAttribute("register", new People());
 		m.addAttribute("roles", PeopleRole.values());
@@ -189,6 +215,7 @@ public class GeneralControler {
 		} else {
 			m.addAttribute("ressourceesDeploy", "");
 		}
+		m.addAttribute("isConnected", null);
 		return "register";
 	}
 
@@ -222,14 +249,14 @@ public class GeneralControler {
 				// Mettre un mdp pour pouvoir utiliser ce pixel
 				// procédure de vérification manuel par silicyium
 				// En attendant ... 
-				if(!peopleDetailsService.checkID(p,drapeau)) {
+				if(!pds.checkID(p,drapeau)) {
 					return "redirect:/police";//renvoyer sur une convocation au comissariat x)					
 				}
 			}
 			// Tout est ok on va enregistrer la personne et l'auto connecter.
-			peopleDetailsService.save(p);
+			pds.save(p);
 			try {
-				UserDetails userDetails = peopleDetailsService.loadUserByUsername(p.getUsername());
+				UserDetails userDetails = pds.loadUserByUsername(p.getUsername());
 				UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
 						userDetails, p.getPassword(), userDetails.getAuthorities());
 
@@ -262,7 +289,7 @@ public class GeneralControler {
 
 	private People getCurentUser() throws Exception {
 		UserDetails userD = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		return peopleDetailsService.findByUsername(userD.getUsername());
+		return pds.findByUsername(userD.getUsername());
 	}
 
 	/**
@@ -283,6 +310,7 @@ public class GeneralControler {
 				} else {
 					m.addAttribute("ressourceesDeploy", "");
 				}
+				m.addAttribute("isConnected", p);
 				return "carteIdentiter";// html a crée
 			} else {
 				return "redirect:/police";
@@ -296,6 +324,17 @@ public class GeneralControler {
 	@GetMapping("/assotiation")
 	public String assosList(Model m) {
 		m.addAttribute("assotiations", assotiations);
+		m.addAttribute("isConnected", getCurentUserOrNull());
 		return "register";
 	}
+	
+	/**
+	 * Renvoie toute les données de la base de donnée afin de rendre acte des données personnel que l'on récolte.
+	 * @return
+	 */
+    @RequestMapping("/allDB")
+    @ResponseBody
+    public List<People> allDB(){
+    	return pds.getAllUsers();
+    }	
 }
