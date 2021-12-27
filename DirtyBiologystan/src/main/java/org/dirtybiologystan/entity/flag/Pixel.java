@@ -1,5 +1,7 @@
 package org.dirtybiologystan.entity.flag;
 
+import org.dirtybiologystan.entity.People;
+
 public class Pixel {
 
 	private Integer colone;
@@ -15,11 +17,18 @@ public class Pixel {
 	public Pixel(Integer ligne, Integer colone) {
 		this.colone = colone;
 		this.ligne = ligne;
+		this.couleur = "#000";
+		this.attribuer=false;
 	}
 
-	public Pixel(int intValue, int intValue2, String couleur2) {
-		this(intValue, intValue2);
+	public Pixel(int ligne, int colone, String couleur2) {
+		this(ligne, colone);
 		this.couleur=couleur2;
+	}
+	
+	public Pixel(int ligne, int colone, String couleur2,People p) {
+		this(ligne, colone,couleur2);
+		this.attribuer=true;
 	}
 
 	public static Pixel findLatest() {

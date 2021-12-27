@@ -42,6 +42,8 @@ public class People {
 	@Column(nullable = false)
 	private String username;
 	@Column(nullable = false)
+	private String email;
+	@Column(nullable = false)
 	private String firstname;
 	@Column(nullable = false)
 	private String name;
@@ -235,6 +237,15 @@ public class People {
 
 	public void setCouleur(String couleur) {
 		this.couleur = couleur;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		//TODO vérification d'usage de l'email
+		this.email = email;
 	}
 
 	/**

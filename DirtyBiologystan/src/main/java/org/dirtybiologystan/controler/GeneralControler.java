@@ -200,7 +200,10 @@ public class GeneralControler {
 				//TODO
 				// Mettre un mdp pour pouvoir utiliser ce pixel
 				// procédure de vérification manuel par silicyium
-				return null;
+				// En attendant ... 
+				if(!peopleDetailsService.checkID(p,drapeau)) {
+					return "police";					
+				}
 			}
 			peopleDetailsService.save(p);
 			try {
