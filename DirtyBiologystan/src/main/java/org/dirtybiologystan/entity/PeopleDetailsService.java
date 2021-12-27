@@ -1,10 +1,15 @@
 package org.dirtybiologystan.entity;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.dirtybiologystan.entity.flag.Flag;
 import org.dirtybiologystan.entity.flag.Pixel;
 import org.dirtybiologystan.factory.PeopleFactory;
+import org.springframework.boot.autoconfigure.security.saml2.Saml2RelyingPartyProperties.Decryption;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,8 +30,11 @@ public class PeopleDetailsService implements UserDetailsService {
     @Inject
     PeopleFactory peopleList;
 
-    public final PasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+    public final PasswordEncoder bCryptPasswordEncoder;
 
+    public PeopleDetailsService() throws NoSuchAlgorithmException{
+    	this.bCryptPasswordEncoder =new BCryptPasswordEncoder(31,SecureRandom.getInstanceStrong());
+    }
    
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -43,10 +51,22 @@ public class PeopleDetailsService implements UserDetailsService {
     }
 
     public People findByUsername(String username) {
-        return peopleList.findByUsername(username);
+    	People p =peopleList.findByUsername(username);
+    	decrypt(p);
+        return p;
     }
     
-    /**
+
+	public List<People> getAllUsers() {
+		peopleList.findAll().forEach(e-> decrypt(e));
+		return null;
+	}
+    
+    private void decrypt(People p) {
+		// TODO Auto-generated method stub
+	}
+
+	/**
      * Procédure de vérification d'une personne.
      * Notament on vérifie si son pixel n'est pas claim par quelqu'un
      * @param p
@@ -61,5 +81,6 @@ public class PeopleDetailsService implements UserDetailsService {
 		}
     	return !pix.getAttribuer();
     }
+
 
 }
