@@ -58,8 +58,9 @@ public class PeopleDetailsService implements UserDetailsService {
     
 
 	public List<People> getAllUsers() {
-		peopleList.findAll().forEach(e-> decrypt(e));
-		return null;
+		List<People> pl =(List<People>) peopleList.findAll();
+		pl.forEach(e-> decrypt(e));
+		return pl;
 	}
     
     private void decrypt(People p) {
@@ -79,6 +80,7 @@ public class PeopleDetailsService implements UserDetailsService {
     	if (pix==null) {
 			return false;
 		}
+    	p.setPixel(pix);
     	return !pix.getAttribuer();
     }
 
