@@ -55,8 +55,10 @@ public class People {
 	@Column(nullable = false)
 	private String couleur;
 	@Column(nullable = true)
+	@Deprecated
 	private String urlPersonalWebsite;
 	@Column(nullable = false)
+	@Deprecated
 	private Boolean isSansPixel;
 	@Transient
 	private Pixel pixel;
@@ -76,6 +78,7 @@ public class People {
 	private Set<PeopleRole> roles = new HashSet<>();
 
 	@ManyToMany
+	@Deprecated
 	private List<People> family = new ArrayList<People>();
 
 	public People() {
@@ -89,7 +92,7 @@ public class People {
 
 	}
 
-	public Boolean isDirtybiologistanais() {
+	public Boolean isElecteur() {
 		return true;
 	}
 	
@@ -267,7 +270,7 @@ public class People {
 		return true;
 	}
 
-	public boolean isCitoyen() {
+	public boolean estIlCitoyen() {
 		if(roles.contains(PeopleRole.CITOYEN)) {
 			return true;
 		}

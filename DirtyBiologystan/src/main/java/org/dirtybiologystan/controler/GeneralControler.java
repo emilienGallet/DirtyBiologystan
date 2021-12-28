@@ -66,7 +66,7 @@ public class GeneralControler {
 		} else {
 			m.addAttribute("ressourceesDeploy", "");
 		}
-		m.addAttribute("connecter", getCurentUserOrNull());
+		m.addAttribute("isConnected", getCurentUserOrNull());
 		return "index";
 	}
 
@@ -138,7 +138,7 @@ public class GeneralControler {
 		//Si l'utilisateur est connecter, alors il peux afficher ces pixels voisins et parametrer son pixel.
 		try {
 			People p = getCurentUser();
-			if (p.isCitoyen()) {
+			if (p.estIlCitoyen()) {
 				m.addAttribute("voisins", p.getVoisin(drapeau.drapeau,6));
 				m.addAttribute("isConnected", p);
 			}else {
@@ -326,6 +326,18 @@ public class GeneralControler {
 		m.addAttribute("assotiations", assotiations);
 		m.addAttribute("isConnected", getCurentUserOrNull());
 		return "register";
+	}
+	
+	@GetMapping("/police")
+	public String police(Model m) {
+		if (DeployInit.isLive) {
+			m.addAttribute("ressourceesDeploy", DeployInit.PathResourcesDeploy);
+		} else {
+			m.addAttribute("ressourceesDeploy", "");
+		}
+		m.addAttribute("assotiations", assotiations);
+		m.addAttribute("isConnected", getCurentUserOrNull());
+		return "police";
 	}
 	
 	/**
