@@ -54,12 +54,6 @@ public class People {
 	private String ligne;
 	@Column(nullable = false)
 	private String couleur;
-	@Column(nullable = true)
-	@Deprecated
-	private String urlPersonalWebsite;
-	@Column(nullable = false)
-	@Deprecated
-	private Boolean isSansPixel;
 	@Transient
 	private Pixel pixel;
 	@Column(nullable = true)
@@ -76,10 +70,6 @@ public class People {
 	@ElementCollection(fetch = FetchType.EAGER)
 	@Enumerated(EnumType.STRING)
 	private Set<PeopleRole> roles = new HashSet<>();
-
-	@ManyToMany
-	@Deprecated
-	private List<People> family = new ArrayList<People>();
 
 	public People() {
 
@@ -152,14 +142,6 @@ public class People {
 		this.roles = roles;
 	}
 
-	public List<People> getFriend() {
-		return family;
-	}
-
-	public void setFriend(List<People> friend) {
-		this.family = friend;
-	}
-
 	public String getColone() {
 		return colone;
 	}
@@ -176,14 +158,6 @@ public class People {
 		this.ligne = ligne;
 	}
 
-	public String getUrlPersonalWebsite() {
-		return urlPersonalWebsite;
-	}
-
-	public void setUrlPersonalWebsite(String urlPersonalWebsite) {
-		this.urlPersonalWebsite = urlPersonalWebsite;
-	}
-
 	public Pixel getPixel() {
 		return pixel;
 	}
@@ -193,14 +167,6 @@ public class People {
 		this.colone = pixel.getColone().toString();
 		this.ligne = pixel.getLigne().toString();
 		this.couleur = pixel.getCouleur();
-	}
-
-	public Boolean getIsSansPixel() {
-		return isSansPixel;
-	}
-
-	public void setIsSansPixel(Boolean isSansPixel) {
-		this.isSansPixel = isSansPixel;
 	}
 
 	public LocalDateTime getDebutValiditer() {

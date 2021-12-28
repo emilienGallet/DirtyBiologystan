@@ -237,7 +237,6 @@ public class GeneralControler {
 				p.getRoles().remove(PeopleRole.NEW_CITOYEN);
 				try {
 					p.setPixel(this.affecterPixel());
-					p.setIsSansPixel(false);
 				} catch (Exception e) {
 					// TODO rajouter les attribut pour la page d'erreur 
 					e.printStackTrace();
