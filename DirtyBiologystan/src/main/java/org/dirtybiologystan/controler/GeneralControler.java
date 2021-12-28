@@ -154,7 +154,7 @@ public class GeneralControler {
 		return "realFlag/flag";
 	}
 	/**
-	 * 
+	 * requete de pixelColor.js
 	 * @param couleur
 	 * @return en JSON la réponse oui ou non si le pixel a été bien modifier
 	 */
@@ -162,13 +162,13 @@ public class GeneralControler {
 	@ResponseBody
 	public String modifierPixel(@RequestBody String couleur) {
 		try {
+			couleur = couleur.replace("\"", "");
 			System.out.println(couleur);
 			People p = getCurentUser();
 			if (p==null) {
 				return "{\"result\":\"no\"}";
 			}
-			p.getPixel(this.drapeau.drapeau);
-			//drapeau.rajouterNewPixel("#FF2345");
+			p.setPixel(this.drapeau,couleur);//
 			System.out.println("ok");
 			return "{\"result\":\"yes\"}";
 		} catch (Exception e) {

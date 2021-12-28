@@ -23,6 +23,7 @@ import javax.persistence.Transient;
 
 import com.sun.istack.NotNull;
 
+import org.dirtybiologystan.entity.flag.Flag;
 import org.dirtybiologystan.entity.flag.Pixel;
 import org.springframework.stereotype.Component;
 
@@ -307,6 +308,16 @@ public class People {
 
 	public Pixel getPixel(TreeMap<Integer, TreeMap<Integer, Pixel>> drapeau) {
 		return drapeau.get(Integer.parseInt(this.ligne)).get(Integer.parseInt(this.colone));
+	}
+
+	/**
+	 * Modifie le pixel détenu par l'utilisateur à la couleur donnée
+	 * @param drapeau
+	 * @param couleur2
+	 */
+	public void setPixel(Flag f, String couleur2) {
+		this.pixel=f.getPixel(ligne, colone);
+		this.pixel.setCouleur(couleur2);
 	}
 
 }
