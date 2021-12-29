@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.dirtybiologystan.cryptor.ObjectCryptor;
 import org.dirtybiologystan.entity.flag.Flag;
 import org.dirtybiologystan.entity.flag.Pixel;
 import org.dirtybiologystan.factory.PeopleFactory;
@@ -46,11 +47,11 @@ public class PeopleDetailsService implements UserDetailsService {
     }
 
     public void save(People people) {
-        people.setPassword(bCryptPasswordEncoder.encode(people.getPassword()));
+        encrypt(people);
         peopleList.save(people);
     }
 
-    public People findByUsername(String username) {
+	public People findByUsername(String username) {
     	People p =peopleList.findByUsername(username);
     	decrypt(p);
         return p;
@@ -62,10 +63,25 @@ public class PeopleDetailsService implements UserDetailsService {
 		pl.forEach(e-> decrypt(e));
 		return pl;
 	}
-    
-    private void decrypt(People p) {
-		// TODO Auto-generated method stub
+	/**
+	 * On crypte les donnéees dites sensibles afin de se conformer a la CNIL
+	 * @param people
+	 */
+	private void encrypt(People people) {
+		people.setLieuIRL(ObjectCryptor.encode(people.getLieuIRL()));
+		people.setEmail(ObjectCryptor.encode(people.getEmail()));
+		people.setUsername(ObjectCryptor.encode(people.getUsername()));
+		people.setName(ObjectCryptor.encode(people.getName()));
+		people.setFirstname(ObjectCryptor.encode(people.getFirstname()));
+		people.setPassword(bCryptPasswordEncoder.encode(people.getPassword()));
 	}
+    /**
+     * decyptage des données
+     * @param p
+     */
+    private void decrypt(People p) {
+
+    }
 
 	/**
      * Procédure de vérification d'une personne.
