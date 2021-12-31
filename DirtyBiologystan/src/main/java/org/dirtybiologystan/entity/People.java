@@ -42,7 +42,7 @@ public class People {
 	private Long idSource;// if exist official sources
 	@Column(nullable = false)
 	private String username;
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private String email;
 	@Column(nullable = true)
 	private String firstname;

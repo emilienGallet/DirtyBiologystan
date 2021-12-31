@@ -1,6 +1,7 @@
 package org.dirtybiologystan.controler;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -421,7 +422,10 @@ public class GeneralControler {
 	 */
     @RequestMapping("/allDB")
     @ResponseBody
-    public List<People> allDB(){
-    	return pds.getAllUsers();
+    public List<Object> allDB(){
+    	List<Object> data = new ArrayList<Object>();
+    	data.add(pds.getAllUsers());
+    	data.add(this.drapeau);
+    	return data;
     }	
 }

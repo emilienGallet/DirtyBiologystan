@@ -10,7 +10,7 @@
 		<h2>Inscription a l'état civil du DirtyBiologistan</h2>
 		<script type="text/javascript" th:attr="src=${ressourceesDeploy +'/js/register.js'}"></script>
 		<form class="center" method="POST" th:action=@{/register} th:object="${register}">
-			<table>
+			<table id="tableEnregistrement">
 				<tbody>
 					<tr>
 						<td><input class="form-horizontal" type="text" th:field="*{username}" placeholder="Username"
@@ -24,10 +24,11 @@
 						<td><input class="form-horizontal" type="password" th:field="*{password}" placeholder="Password"
 								required></td>
 					</tr>
-					<tr hidden>
-						<td><input class="form-horizontal" type="text" th:field="*{email}"
-								placeholder="wolfo.mir@gmail.com" value="NONDEMANDERACTUELEMENT" required></td>
-					</tr>
+					<!--
+					<tr>
+						<td><input class="form-horizontal" type="text" th:field="*{email}" id="email"
+								placeholder="wolfo.mir@gmail.com" required></td>
+					</tr>-->
 					<tr>
 						<td><select id="roles" th:field="*{roles}">
 								<option th:each="role : ${roles}" th:value="${role}" onclick="displayCoordinate()">
