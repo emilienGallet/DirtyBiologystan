@@ -12,3 +12,7 @@
 #register hr{
 	margin: 1px;
 }
+
+html, body {
+    background-color: #0b0c0d;
+}
