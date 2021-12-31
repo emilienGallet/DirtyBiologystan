@@ -4,7 +4,7 @@
       <tr>
         <td><a href="/"><h1>&#8962; DirtyBiologistan</h1></a></td>
         <td th:if="${isConnected}==null"><div id="register"><a href="/register">Prendre la Nationalité</a><hr><a href="/login">Se connecter</a></div></td>
-        <td th:if="${isConnected}!=null"><div id="register">Bonjour [[${isConnected.username}]]<hr><a href="/register">Votre profil</a></div></td>
+        <td th:if="${isConnected}!=null"><div id="register">Bonjour [[${isConnected.username}]]<hr><a href="/citoyens">Votre profil</a></div></td>
       </tr>
     </table>
     

@@ -105,13 +105,11 @@ public class GeneralControler {
 	 */
 	@GetMapping("/citoyens")
 	public String citoyens(Model m) {
-		if (DeployInit.isLive) {
-			m.addAttribute("ressourceesDeploy", DeployInit.PathResourcesDeploy);
-		} else {
-			m.addAttribute("ressourceesDeploy", "");
+		People p;
+		if ((p = getCurentUserOrNull())==null) {
+			return "redirect:/";
 		}
-		m.addAttribute("isConnected", getCurentUserOrNull());
-		return "citoyens";
+		return "redirect:/idCard/"+p.getId();
 	}
 
 	/**
