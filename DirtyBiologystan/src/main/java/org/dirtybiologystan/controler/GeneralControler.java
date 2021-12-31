@@ -181,7 +181,7 @@ public class GeneralControler {
 			}
 			p.setPixel(this.drapeau,couleur);//
 			System.out.println("ok");
-			return "{\"result\":\"yes\"}";
+			return "{\"result\":\""+p.getColone()+":"+p.getLigne()+"|"+couleur+"\"}";
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("NON");

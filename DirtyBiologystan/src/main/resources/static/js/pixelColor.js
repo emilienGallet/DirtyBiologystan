@@ -9,11 +9,18 @@ async function editerPixel(){
 				});
 				let body = await res.json();
 				console.log(body);
-				if(body.result==="yes"){
-					console.log("modifier");
+				if(body.result!=="no"){
+					changePixelColor(body.result);
 				}else{
 					console.log('non modifier');
+					/* TODO display error */
 				}
+}
+
+function changePixelColor(result){
+	tab = result.split('|');
+	let pixel = document.getElementById(tab[0]);
+	pixel.style.backgroundColor=tab[1];
 }
 
 function submitOnEnter(e) {
