@@ -172,7 +172,6 @@ public class GeneralControler {
 			System.out.println("ok");
 			return "{\"result\":\"yes\"}";
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("NON");
 			return "{\"result\":\"no\"}";
@@ -196,7 +195,23 @@ public class GeneralControler {
 	private Pixel affecterPixel() throws Exception {
 		return drapeau.rajouterNewPixel("#0000");//pixel TRRANSPARENT
 	}
-
+	
+	/**
+	 * Retourne la constitution de la micronation
+	 * 
+	 * @return constitution.html
+	 */
+	@GetMapping("/login")
+	public String login(Model m) {
+		System.out.println("OKAY");
+		if (DeployInit.isLive) {
+			m.addAttribute("ressourceesDeploy", DeployInit.PathResourcesDeploy);
+		} else {
+			m.addAttribute("ressourceesDeploy", "");
+		}
+		m.addAttribute("isConnected", getCurentUserOrNull());
+		return "login";
+	}
 
 	/**
 	 * 

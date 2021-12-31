@@ -26,11 +26,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
             .antMatchers("/","/drapeau","/register","/css/**","/img/**","/js/**","/h2-console/**").permitAll()
             .anyRequest().authenticated()
-            .and().formLogin().defaultSuccessUrl("/",true)
-            .and().logout().logoutSuccessUrl("/");
+            .and().formLogin().disable();
             http.csrf().disable();
         http.headers().frameOptions().disable();
-
     }
 
      @Override
