@@ -46,8 +46,8 @@ public class PeopleDetailsService implements UserDetailsService {
         return new User(people.getUsername(), people.getPassword(), people.getRoles());
     }
 
-    public void save(People people) {
-        encrypt(people);
+    public void save(People people,String cipher) {
+        encrypt(people,cipher);
         peopleList.save(people);
     }
 
@@ -66,13 +66,15 @@ public class PeopleDetailsService implements UserDetailsService {
 	/**
 	 * On crypte les donnéees dites sensibles afin de se conformer a la CNIL
 	 * @param people
+	 * @param cipher 
+	 * @param pds 
 	 */
-	private void encrypt(People people) {
-		people.setLieuIRL(ObjectCryptor.encode(people.getLieuIRL()));
-		people.setEmail(ObjectCryptor.encode(people.getEmail()));
-		people.setUsername(ObjectCryptor.encode(people.getUsername()));
-		people.setName(ObjectCryptor.encode(people.getName()));
-		people.setFirstname(ObjectCryptor.encode(people.getFirstname()));
+	private void encrypt(People people, String cipher) {
+		people.setLieuIRL(ObjectCryptor.encode(people.getLieuIRL(),cipher));
+		people.setEmail(ObjectCryptor.encode(people.getEmail(),cipher));
+		people.setUsername(ObjectCryptor.encode(people.getUsername(),cipher));
+		people.setName(ObjectCryptor.encode(people.getName(),cipher));
+		people.setFirstname(ObjectCryptor.encode(people.getFirstname(),cipher));
 		people.setPassword(bCryptPasswordEncoder.encode(people.getPassword()));
 	}
     /**

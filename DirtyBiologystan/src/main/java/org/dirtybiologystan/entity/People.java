@@ -44,9 +44,9 @@ public class People {
 	private String username;
 	@Column(nullable = false)
 	private String email;
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private String firstname;
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private String name;
 	@Column(nullable = false)
 	private String colone;

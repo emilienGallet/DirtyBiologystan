@@ -1,6 +1,7 @@
 package org.dirtybiologystan.controler;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -15,6 +16,7 @@ import org.dirtybiologystan.entity.flag.Pixel;
 import org.dirtybiologystan.repository.AssociationRepository;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.token.Sha512DigestUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,13 +47,24 @@ public class GeneralControler {
 	AssociationRepository assotiations;
 
 	private Flag drapeau = new Flag();
+	
+	/**
+	 * Permet de déchiffrer ce qui est stocker en BDD a partir d'une clé généré par l'utilisateur et par le système
+	 */
+	private HashMap<String, String> decipher;
+	private String cipher;
 
 	/**
 	 * Constructeur permetant au démarage l'import des données issue de Codati.
 	 * @throws Exception
 	 */
 	public GeneralControler() throws Exception {
+		/////////////////////////////////////////////////////////////////////////////////////////////
+		//A remplacer apres le 1er start par une version sauvegarder du drapeau
 		drapeau.chargerDataFromFouloscopieAndCodati();
+		/////////////////////////////////////////////////////////////////////////////////////////////
+		cipher = System.getProperties().getProperty("user.dir");
+		decipher = new HashMap<>();
 	}
 
 	/**
@@ -197,20 +210,67 @@ public class GeneralControler {
 	}
 	
 	/**
-	 * Retourne la constitution de la micronation
+	 * Retour la page de connection
 	 * 
-	 * @return constitution.html
+	 * @return login.html
 	 */
 	@GetMapping("/login")
-	public String login(Model m) {
-		System.out.println("OKAY");
+	public String loginpage(Model m) {
+		if (getCurentUserOrNull()!=null) {
+			return "redirect:/";
+		}
 		if (DeployInit.isLive) {
 			m.addAttribute("ressourceesDeploy", DeployInit.PathResourcesDeploy);
 		} else {
 			m.addAttribute("ressourceesDeploy", "");
 		}
+		m.addAttribute("p", new People());
 		m.addAttribute("isConnected", getCurentUserOrNull());
 		return "login";
+	}
+	
+	/**
+	 * Retour la page de connection
+	 * 
+	 * @return login.html
+	 */
+	@PostMapping("/login")
+	public String login(@ModelAttribute("p") People p, BindingResult bindingResult) {
+		//EMPECHER LE BRUT FORCE (limit par IP) 
+		
+		if (getCurentUserOrNull()!=null) {
+			return "redirect:/";
+		}
+		
+		try {
+			if (!isCorrect(p)) {
+				return "redirect:/login";
+			}
+		}catch (Exception e) {
+			return "redirect:/login";//TODO indiquer plus tard la source de l'erreur
+		}
+		//Cree une méthode pour /register aussi
+		addMapDecipher(p.getUsername(),p.getPassword());
+		
+		//Partie a voir.
+		UserDetails userDetails = pds.loadUserByUsername(p.getUsername());
+		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
+				userDetails, p.getPassword(), userDetails.getAuthorities());
+
+		if (usernamePasswordAuthenticationToken.isAuthenticated()) {
+			SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+		}
+		return "redirect:/";
+	}
+
+	private boolean isCorrect(People p) {
+		return pds.bCryptPasswordEncoder.matches(p.getPassword(), pds.findByUsername(p.getUsername()).getPassword());	
+	}
+
+	private String addMapDecipher(String username,String password) {
+		String wholeCipher = Sha512DigestUtils.shaHex(password+this.cipher);
+		decipher.put(username,wholeCipher);
+		return wholeCipher;
 	}
 
 	/**
@@ -268,7 +328,10 @@ public class GeneralControler {
 				}
 			}
 			// Tout est ok on va enregistrer la personne et l'auto connecter.
-			pds.save(p);
+			String chi =addMapDecipher(p.getUsername(),p.getPassword());
+			
+			pds.save(p,chi);
+			//Décryptage des données présente en BDD exposé au public comme le veux une spécification dite en assemblée
 			try {
 				UserDetails userDetails = pds.loadUserByUsername(p.getUsername());
 				UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
