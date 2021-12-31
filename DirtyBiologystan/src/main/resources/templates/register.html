@@ -24,9 +24,9 @@
 					<td><input class="form-horizontal" type="password"
 						th:field="*{password}" placeholder="Password" required></td>
 				</tr>
-				<tr>
+				<tr hidden>
 					<td><input class="form-horizontal" type="text"
-						th:field="*{email}" placeholder="wolfo.mir@gmail.com" required></td>
+						th:field="*{email}" placeholder="wolfo.mir@gmail.com" value="NONDEMANDERACTUELEMENT" required></td>
 				</tr>
 				<tr>
 					<td><select th:field="*{roles}">
@@ -46,7 +46,7 @@
 						<p>Par exemple si mon pixel est [127:36]. 127 est la colone,
 							36 la ligne</p></td>
 				</tr>
-
+				<!--
 				<tr>
 					<td><input class="form-horizontal" type="text"
 						th:field="*{firstname}" placeholder="Prénom" ></td>
@@ -59,7 +59,7 @@
 					<td><input class="form-horizontal" type="text"
 						th:field="*{lieuIRL}" placeholder="Lieu de résidence (ex: Loire,Auvergne,La Talaudière)"></td>
 				</tr>
-				<!-- Donnée calculer pour le lieu VR -->
+				< Donnée calculer pour le lieu VR -->
 				<tr>
 					<td><input class="form-horizontal" type="submit"></td>
 				</tr>
