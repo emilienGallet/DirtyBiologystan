@@ -16,3 +16,10 @@
 html, body {
     background-color: #0b0c0d;
 }
+
+section h2{
+	padding:20px 0px;
+}
+section input{
+	margin :20px 0px;
+}

@@ -3,50 +3,52 @@
 
 <head th:replace="~{head:: baseLayout(titre='Formlaire de demande de la nationalité du
 	DirtyBiologistan')}"></head>
+
 <body>
 	<header th:replace="~{header:: baseLayout()}"></header>
-
-	<h2>Inscription a l'état civil du DirtyBiologistan</h2>
-	<form class="center" method="POST" th:action=@{/register}
-		th:object="${register}">
-		<table>
-			<tbody>
-				<tr>
-					<td><input class="form-horizontal" type="text"
-						th:field="*{username}" placeholder="Username" required></td>
-				</tr>
-				<tr>
-					<td><span class="error"
-						th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
-						th:errorclass="fieldError"></span></td>
-				</tr>
-				<tr>
-					<td><input class="form-horizontal" type="password"
-						th:field="*{password}" placeholder="Password" required></td>
-				</tr>
-				<tr hidden>
-					<td><input class="form-horizontal" type="text"
-						th:field="*{email}" placeholder="wolfo.mir@gmail.com" value="NONDEMANDERACTUELEMENT" required></td>
-				</tr>
-				<tr>
-					<td><select th:field="*{roles}">
-							<option th:each="role : ${roles}" th:value="${role}">[[${role}]]</option>
-					</select></td>
-				</tr>
-				<tr>
-					<td><input class="form-horizontal" type="text"
-						th:field="*{colone}" placeholder="Colone du pixel"></td>
-				</tr>
-				<tr>
-					<td><input class="form-horizontal" type="text"
-						th:field="*{ligne}" placeholder="Ligne du pixel"></td>
-				</tr>
-				<tr>
-					<td>
-						<p>Par exemple si mon pixel est [127:36]. 127 est la colone,
-							36 la ligne</p></td>
-				</tr>
-				<!--
+	<section>
+		<h2>Inscription a l'état civil du DirtyBiologistan</h2>
+		<script type="text/javascript" th:attr="src=${ressourceesDeploy +'/js/register.js'}"></script>
+		<form class="center" method="POST" th:action=@{/register} th:object="${register}">
+			<table>
+				<tbody>
+					<tr>
+						<td><input class="form-horizontal" type="text" th:field="*{username}" placeholder="Username"
+								required></td>
+					</tr>
+					<tr>
+						<td><span class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
+								th:errorclass="fieldError"></span></td>
+					</tr>
+					<tr>
+						<td><input class="form-horizontal" type="password" th:field="*{password}" placeholder="Password"
+								required></td>
+					</tr>
+					<tr hidden>
+						<td><input class="form-horizontal" type="text" th:field="*{email}"
+								placeholder="wolfo.mir@gmail.com" value="NONDEMANDERACTUELEMENT" required></td>
+					</tr>
+					<tr>
+						<td><select id="roles" th:field="*{roles}">
+								<option th:each="role : ${roles}" th:value="${role}" onclick="displayCoordinate()">
+									[[${role}]]</option>
+							</select></td>
+					</tr>
+					<tr>
+						<td><input class="form-horizontal" type="text" id="colone" th:field="*{colone}"
+								placeholder="Colone du pixel"></td>
+					</tr>
+					<tr>
+						<td><input class="form-horizontal" type="text" id="ligne" th:field="*{ligne}"
+								placeholder="Ligne du pixel"></td>
+					</tr>
+					<tr>
+						<td>
+							<p>Par exemple si mon pixel est [127:36]. 127 est la colone,
+								36 la ligne</p>
+						</td>
+					</tr>
+					<!--
 				<tr>
 					<td><input class="form-horizontal" type="text"
 						th:field="*{firstname}" placeholder="Prénom" ></td>
@@ -60,16 +62,19 @@
 						th:field="*{lieuIRL}" placeholder="Lieu de résidence (ex: Loire,Auvergne,La Talaudière)"></td>
 				</tr>
 				< Donnée calculer pour le lieu VR -->
-				<tr>
-					<td><input class="form-horizontal" type="submit"></td>
-				</tr>
-				<tr>
-					<td></td>
-				</tr>
-			</tbody>
-		</table>
-	</form>
+					<tr>
+						<td><input class="form-horizontal" type="submit"></td>
+					</tr>
+					<tr>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</section>
+	<section id="vide"></section>
 	<footer th:replace="~{footer:: baseLayout()}"></footer>
+	<script type="text/javascript" th:attr="src=${ressourceesDeploy +'/js/footer.js'}"></script>
 </body>
 
 </html>
