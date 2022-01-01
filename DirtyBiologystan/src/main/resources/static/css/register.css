@@ -1,6 +1,6 @@
 @charset "UTF-8";
 #colone,#ligne{
-	display: none;
+	display: inline-block;
 }
 
 input, select {

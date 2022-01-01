@@ -20,6 +20,9 @@
 	font-size: 30px;
 	color: #000;
 }
+#bottomCardFront td{
+	font-size: 7px;
+}
 
 #RPDB {
 	height: 13%;

@@ -110,7 +110,7 @@ public class GeneralControler {
 		if ((p = getCurentUserOrNull())==null) {
 			return "redirect:/";
 		}
-		return "redirect:/idCard/"+p.getId();
+		return "redirect:/idCard/"+Sha512DigestUtils.shaHex(p.getId().toString());
 	}
 
 	/**
@@ -344,7 +344,7 @@ public class GeneralControler {
 				//Partie non atteinte normalement
 				System.err.println("NON OK");// log.error(e.getMessage(), e);
 			}
-			return "redirect:/idCard/" + p.getId();
+			return "redirect:/idCard/" + Sha512DigestUtils.shaHex(p.getId().toString());
 		}
 		return "/register";
 
@@ -376,11 +376,13 @@ public class GeneralControler {
 	 * sinon la route de la police (non définie)
 	 */
 	@GetMapping("/idCard/{idCard}")
-	public String carteIdentite(@PathVariable Long idCard, Model m) {
+	public String carteIdentite(@PathVariable String idCard, Model m) {
 		try {
 			People p = getCurentUser();
-			if (p.getId() == idCard) {
+			if (Sha512DigestUtils.shaHex(p.getId().toString()).contentEquals(idCard)) {
+				String asked = Sha512DigestUtils.shaHex(idCard+System.getProperties().getProperty("user.dir"));
 				m.addAttribute("people", p);
+				m.addAttribute("cardIdentification", asked);
 				if (DeployInit.isLive) {
 					m.addAttribute("ressourceesDeploy", DeployInit.PathResourcesDeploy);
 				} else {

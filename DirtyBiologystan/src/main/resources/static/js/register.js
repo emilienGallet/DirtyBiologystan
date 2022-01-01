@@ -19,7 +19,10 @@ function displayCoordinate() {
 
 function isPhone() {
 	let str = navigator.userAgent;
+	//alert(str)
 	if (str.includes("Windows") || str.includes("Linux")) {
+		document.getElementById('colone').style.display = "none"
+		document.getElementById('ligne').style.display = "none"
 		return false;
 	}
 	return true;
@@ -27,11 +30,11 @@ function isPhone() {
 
 function forPhone() {
 	if (isPhone()) {
-		let element = document.getElementById('roles');
+		let element = document.getElementById('roles'); //erreur a ce niveau la sur emulateur et pas sur PC
 		element.addEventListener('change', function() {
 			displayCoordinate();
 		}, false);
 	}
 }
 
-forPhone();
+window.onloadend = forPhone();
