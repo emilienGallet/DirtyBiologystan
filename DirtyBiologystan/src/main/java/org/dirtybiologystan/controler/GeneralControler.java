@@ -54,16 +54,13 @@ public class GeneralControler {
 	 */
 	private HashMap<String, String> decipher;
 	private String cipher;
+	private Boolean start;
 
 	/**
 	 * Constructeur permetant au démarage l'import des données issue de Codati.
-	 * @throws Exception
 	 */
-	public GeneralControler() throws Exception {
-		/////////////////////////////////////////////////////////////////////////////////////////////
-		//A remplacer apres le 1er start par une version sauvegarder du drapeau
-		drapeau.chargerDataFromFouloscopieAndCodati();
-		/////////////////////////////////////////////////////////////////////////////////////////////
+	public GeneralControler(){
+		start=true;
 		cipher = System.getProperties().getProperty("user.dir");
 		decipher = new HashMap<>();
 	}
@@ -74,7 +71,7 @@ public class GeneralControler {
 	 * @return l'index du site web en thymeleaf
 	 */
 	@GetMapping("/")
-	public String home(Model m) {
+	public String home(Model m) {		
 		if (DeployInit.isLive) {
 			m.addAttribute("ressourceesDeploy", DeployInit.PathResourcesDeploy);
 		} else {
@@ -429,5 +426,24 @@ public class GeneralControler {
     	data.add(pds.getAllUsers());
     	data.add(this.drapeau);
     	return data;
-    }	
+    }
+    
+    @GetMapping("/loadDataFromCodati")
+    @ResponseBody
+    public synchronized String loadDataFromCodati() {
+		/////////////////////////////////////////////////////////////////////////////////////////////
+		//A remplacer apres le 1er start par une version sauvegarder du drapeau
+		if (start) {
+			try {
+				drapeau.chargerDataFromFouloscopieAndCodati();
+			} catch (Exception e) {
+				//TODO Auto-generated catch block
+				e.printStackTrace();
+				return "{\"result\":\""+e.getMessage()+"\"}";
+			}
+		}
+		/////////////////////////////////////////////////////////////////////////////////////////////
+		start=false;
+    	return "{\"result\":\"loaded\"}";
+    }
 }

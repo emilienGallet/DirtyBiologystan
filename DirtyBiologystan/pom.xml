@@ -10,10 +10,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>fr.emiliengallet.dirtybiologystan</groupId>
-	<artifactId>DirtyBiologystan</artifactId>
-	<version>1.0</version>
+	<artifactId>DirtyBiologistan</artifactId>
+	<version>2.0</version>
 	<packaging>war</packaging>
-	<name>DirtyBiologystan</name>
+	<name>DirtyBiologistan</name>
 	<description>Création d&apos;un site web avec divers modules qui pourrait s&apos;agencer afin d&apos;établir notre glorieux pays</description>
 	<properties>
 		<java.version>11</java.version>
